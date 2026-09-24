@@ -1,66 +1,92 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Above the Clouds — Scroll to Fly | GSAP Window Zoom</title>
-<meta name="description" content="GSAP ScrollTrigger plane-window zoom inspired by jeskojets.com — cabin (main.webp) with transparent window, sky (sky.webp) behind." />
-<link rel="stylesheet" href="styles.css" />
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Above the Clouds — Scroll to Fly | GSAP Window Zoom</title>
+    <meta
+      name="description"
+      content="GSAP ScrollTrigger plane-window zoom inspired by jeskojets.com — cabin (main.webp) with transparent window, sky (sky.webp) behind."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="progress"><span id="progressBar"></span></div>
 
-<div class="progress"><span id="progressBar"></span></div>
-
-<nav>
-  <div class="brand">AERIS<small>Private Aviation</small></div>
-  <div style="font-size:11px;letter-spacing:.24em">✈ 5000+ MISSIONS</div>
-</nav>
-
-<!-- ============ PINNED ZOOM ============ -->
-<section id="flight">
-  <div class="stage" id="stage">
-    <!-- SKY: behind everything -->
-    <div class="layer sky" id="skyLayer">
-      <div class="sky-photo" id="skyPhotoWrap">
-        <img id="skyPhoto" src="imgs/sky.webp" alt="Sky above the clouds" />
-        <!-- cloud band: 2 copies for a seamless right-to-left marquee -->
-        <div class="drift drift-single" id="driftSingle"><img src="imgs/moving.webp" alt="" /><img src="imgs/moving.webp" alt="" aria-hidden="true" /></div>
-        <!-- two puffs on the same line -->
-        <div class="puff" id="puffA"><img src="imgs/1.webp" alt="" /></div>
-        <div class="puff" id="puffB"><img src="imgs/images.jpg" alt="" /></div>
+    <nav>
+      <div class="brand">AERIS<small>Private Aviation</small></div>
+      <div style="font-size: 11px; letter-spacing: 0.24em">
+        ✈ 5000+ MISSIONS
       </div>
-    </div>
+    </nav>
 
-    <!-- CABIN: original main.webp at full source quality. The window hole is a
+    <!-- ============ PINNED ZOOM ============ -->
+    <section id="flight">
+      <div class="stage" id="stage">
+        <!-- SKY: behind everything -->
+        <div class="layer sky" id="skyLayer">
+          <div class="sky-photo" id="skyPhotoWrap">
+            <img id="skyPhoto" src="imgs/sky.webp" alt="Sky above the clouds" />
+            <!-- cloud band: 2 copies for a seamless right-to-left marquee -->
+            <div class="drift drift-single" id="driftSingle">
+              <img src="imgs/moving.webp" alt="" /><img
+                src="imgs/moving.webp"
+                alt=""
+                aria-hidden="true"
+              />
+            </div>
+            <!-- two puffs on the same line -->
+            <div class="puff" id="puffA"><img src="imgs/1.webp" alt="" /></div>
+            <div class="puff" id="puffB">
+              <img src="imgs/images.jpg" alt="" />
+            </div>
+          </div>
+        </div>
+
+        <!-- CABIN: original main.webp at full source quality. The window hole is a
          live CSS mask (see fitMask), so the file is never re-compressed. -->
-    <div class="layer cabin" id="cabinLayer">
-      <img id="cabinImg" src="imgs/main.webp" alt="Airplane cabin window" fetchpriority="high" decoding="async" />
-    </div>
+        <div class="layer cabin" id="cabinLayer">
+          <img
+            id="cabinImg"
+            src="imgs/main.webp"
+            alt="Airplane cabin window"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </div>
 
-    <div class="vignette"></div>
-    <div class="grain"></div>
-    <div class="sky-fade" id="skyFade"></div>
+        <div class="vignette"></div>
+        <div class="grain"></div>
+        <div class="sky-fade" id="skyFade"></div>
 
-    <!-- copy state 1 -->
-    <div class="copy">
-      <div class="hero-copy" id="heroCopy">
-        <span class="eyebrow"><i></i> Private jet charter · Worldwide</span>
-        <h1>We are <em>movement.</em><br/>We are distinction.</h1>
-        <p>Every flight is designed around your comfort, time and ambitions.<br/>Scroll — and glide closer to the window.</p>
+        <!-- copy state 1 -->
+        <div class="copy">
+          <div class="hero-copy" id="heroCopy">
+            <span class="eyebrow"><i></i> Private jet charter · Worldwide</span>
+            <h1>We are <em>movement.</em><br />We are distinction.</h1>
+            <p>
+              Every flight is designed around your comfort, time and
+              ambitions.<br />Scroll — and glide closer to the window.
+            </p>
+          </div>
+        </div>
+
+        <div class="scroll-hint" id="scrollHint">
+          <div class="wheel"></div>
+          <div>Scroll down</div>
+        </div>
+        <div class="altitude">ALT <b id="altNum">3,200</b> FT — CABIN VIEW</div>
       </div>
-    </div>
+</section>
 
-    <div class="scroll-hint" id="scrollHint">
-      <div class="wheel"></div>
-      <div>Scroll down</div>
-    </div>
-    <div class="altitude">ALT <b id="altNum">3,200</b> FT — CABIN VIEW</div>
-  </div>
+<!-- ============ SKY EXTENSION (empty, same sky colour, extends downward) ============ -->
+<section class="sky-extend">
+  <img src="imgs/second.webp" alt="Above the clouds" />
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
-<script src="app.js"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+    <script src="app.js"></script>
+  </body>
 </html>

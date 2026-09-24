@@ -5,7 +5,7 @@
   // ---- smooth scroll (like the reference site) ----
   let lenis = null;
   try{
-    lenis = new Lenis({ smoothWheel:true, lerp:0.09 });
+    lenis = new Lenis({ smoothWheel:true, lerp:0.1 });
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add(function(time){ lenis.raf(time*1000); });
     gsap.ticker.lagSmoothing(0);
@@ -96,7 +96,7 @@
       trigger:'#flight',
       start:'top top',
       end:'+=350%',
-      scrub:1.2,
+      scrub:true,
       pin:true,
       anticipatePin:1,
       invalidateOnRefresh:true,

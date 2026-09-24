@@ -157,3 +157,12 @@ nav{position:fixed;inset:0 0 auto 0;z-index:50;
   color:var(--altitude)}
 .altitude b{color:var(--white)}
 
+/* big empty extension below the sky — same sky colour, no text.
+   Carries the stage's film grain so the joint melts invisibly. */
+.sky-extend{position:relative;background:var(--sky);min-height:200vh;min-height:200svh;margin-top:-1px}
+.sky-extend img{width:100%;height:auto;display:block;
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 12vh);
+  mask-image:linear-gradient(180deg,transparent 0,#000 12vh)}
+.sky-extend::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.14;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");}
+
