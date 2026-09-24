@@ -4,6 +4,42 @@
   "graph": {},
   "nodes": [
     {
+      "id": "app_fitmask",
+      "label": "fitMask()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "app.js",
+      "file_type": "code",
+      "norm_label": "fitmask()",
+      "source_file": "app.js",
+      "source_location": "L36"
+    },
+    {
+      "id": "app_fitsky",
+      "label": "fitSky()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "fitSky",
+      "file_type": "code",
+      "norm_label": "fitsky()",
+      "source_file": "app.js",
+      "source_location": "L61"
+    },
+    {
+      "id": "app_fitskythenrefresh",
+      "label": "fitSkyThenRefresh()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "fitSky",
+      "file_type": "code",
+      "norm_label": "fitskythenrefresh()",
+      "source_file": "app.js",
+      "source_location": "L73"
+    },
+    {
       "id": "readme",
       "label": "README.md",
       "_origin": "ast",
@@ -14,9 +50,66 @@
       "norm_label": "readme.md",
       "source_file": "README.md",
       "source_location": "L1"
+    },
+    {
+      "id": "app",
+      "label": "app.js",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "app.js",
+      "file_type": "code",
+      "norm_label": "app.js",
+      "source_file": "app.js",
+      "source_location": "L1"
     }
   ],
-  "links": [],
+  "links": [
+    {
+      "source": "app_fitskythenrefresh",
+      "target": "app_fitsky",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app.js",
+      "source_location": "L73",
+      "weight": 1.0
+    },
+    {
+      "source": "app",
+      "target": "app_fitmask",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app.js",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "app",
+      "target": "app_fitsky",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app.js",
+      "source_location": "L61",
+      "weight": 1.0
+    },
+    {
+      "source": "app",
+      "target": "app_fitskythenrefresh",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app.js",
+      "source_location": "L73",
+      "weight": 1.0
+    }
+  ],
   "hyperedges": [],
-  "built_at_commit": "3a755f6f4508d2089558d0fe023938b2179d33b8"
+  "built_at_commit": "0491bbec429fa9af0edecdebea2290642bebc519"
 }

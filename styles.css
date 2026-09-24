@@ -1,0 +1,159 @@
+:root{
+  /* ---------- palette: every colour on the site lives here ---------- */
+  --ink:#f4f1ea;
+  --muted:rgba(244,241,234,.68);
+  --line:rgba(255,255,255,.16);
+  --accent:#9fd8ff;
+  --white:#ffffff;
+  /* sky blue (light) — page, sheet, stage and fade all match */
+  --sky:#62a3c4;
+  --sky-light:#84bad4;
+  --sky-fade-clear:rgba(98,163,196,0);
+  --sky-fade-mid:rgba(98,163,196,.55);
+  --veil:rgba(98,163,196,.55);
+  --paper:#62a3c4;
+  --paper-ink:#ffffff;
+  --ink-dark:#0c1a29;
+  --slate:#3c5a73;
+  --slate-soft:#476b84;
+  --eyebrow-ink:#274b66;
+  --eyebrow-dark-border:rgba(12,26,41,.25);
+  --eyebrow-dark-bg:rgba(255,255,255,.45);
+  --text-glow-light:rgba(255,255,255,.5);
+  --on-sky-body:rgba(255,255,255,.9);
+  --on-sky-soft:rgba(255,255,255,.88);
+  --on-sky-muted:rgba(255,255,255,.85);
+  --on-sky-plain:rgba(255,255,255,.82);
+  --on-sky-faint:rgba(255,255,255,.78);
+  --on-sky-hint:rgba(255,255,255,.75);
+  --kicker-blue:#d9eefb;
+  --card-bg:rgba(58,110,145,.5);
+  --card-border:rgba(255,255,255,.35);
+  --card-shadow:rgba(12,40,70,.35);
+  --chip-bg:rgba(0,0,0,.28);
+  --chip-ink:#eaf5fc;
+  --pill-blue-bg:rgba(255,255,255,.14);
+  --pill-blue-border:rgba(255,255,255,.4);
+  --pill-dark-bg:rgba(0,0,0,.28);
+  --track:rgba(255,255,255,.08);
+  --foot-border:rgba(255,255,255,.25);
+  --shade-top:rgba(4,10,20,.18);
+  --shade-bottom:rgba(4,10,20,.34);
+  --vignette:rgba(0,0,0,.42);
+  --fleet-shade:rgba(0,0,0,.72);
+  --text-glow:rgba(10,40,60,.25);
+  --scroll-hint:rgba(255,255,255,.8);
+  --wheel-border:rgba(255,255,255,.5);
+  --altitude:rgba(255,255,255,.55);
+  --serif:"Didot","Bodoni MT",Playfair Display,Georgia,serif;
+  --sans:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:auto}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{
+  background:var(--sky);color:var(--ink);
+  font-family:var(--sans);overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+/* ---------- progress ---------- */
+.progress{position:fixed;top:0;left:0;height:3px;width:100%;z-index:60;
+  background:var(--track)}
+.progress span{display:block;height:100%;width:100%;transform-origin:0 50%;
+  transform:scaleX(0);background:linear-gradient(90deg,var(--accent),var(--white))}
+
+/* ---------- nav ---------- */
+nav{position:fixed;inset:0 0 auto 0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px clamp(18px,4vw,44px);
+  mix-blend-mode:difference;color:var(--white)}
+.brand{font-family:var(--serif);letter-spacing:.28em;font-size:13px;text-transform:uppercase}
+.brand small{display:block;letter-spacing:.42em;font-size:9px;opacity:.7;margin-top:4px;font-family:var(--sans)}
+.nav-links{display:flex;gap:26px;font-size:12px;letter-spacing:.22em;text-transform:uppercase}
+.nav-links a{color:inherit;text-decoration:none;opacity:.75}
+.nav-links a:hover{opacity:1}
+@media(max-width:640px){.nav-links{display:none}}
+
+/* ---------- pinned flight ---------- */
+#flight{position:relative;height:100vh;height:100svh;overflow:hidden;background:var(--sky)}
+.stage{position:absolute;inset:0;overflow:hidden;background:var(--sky)}
+.layer{position:absolute;inset:-4%;will-change:transform}
+.layer img{width:100%;height:100%;object-fit:cover;display:block}
+
+.sky{transform-origin:50% 62%;z-index:1}
+.sky img{filter:saturate(1.06) contrast(1.02)}
+.sky::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,var(--shade-top),transparent 30%,transparent 62%,var(--shade-bottom));}
+
+/* ONE drifting cloud band (moving.webp), pinned to the sky's top edge —
+   scroll carries it right-to-left and out through the top. */
+.drift{position:absolute;z-index:2;pointer-events:none;will-change:transform;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.layer .drift img{display:block;width:100%;height:auto;object-fit:contain}
+/* seamless right-to-left marquee: the track holds 2 identical copies and
+   slides 0 -> -50% (exactly one copy), then loops with no reverse jump */
+.drift-single{width:340%;left:-35%;top:5%;opacity:.95;display:flex;flex-wrap:nowrap}
+.layer .drift-single img{width:50%;flex:0 0 50%;height:auto;object-fit:contain}
+/* two small cloud puffs (black backgrounds dropped via screen blend),
+   crossing left -> right against the band */
+.puff{position:absolute;z-index:2;pointer-events:none;will-change:transform;mix-blend-mode:screen}
+.layer .puff img{display:block;width:100%;height:auto}
+#puffA{width:15%;left:10%;top:55%}
+#puffB{width:10%;left:28%;top:55%;opacity:.9}
+/* shade at the foot of the sky photo: melts it into the sky-blue below */
+.sky-fade{position:absolute;left:0;right:0;bottom:0;height:42%;z-index:6;
+  pointer-events:none;opacity:0;
+  background:linear-gradient(180deg,var(--sky-fade-clear) 0%,var(--sky-fade-mid) 55%,var(--sky) 100%)}
+/* photo wrap is sized to the photo's exact cover box in JS — clouds live
+   inside it, so their % positions are photo fractions and glide with it */
+.sky-photo{position:absolute;top:0;left:0;width:100%;will-change:transform}
+#skyPhoto{width:100%;height:100%;object-fit:cover;display:block}
+
+.cabin{z-index:3;transform-origin:50.2% 49%}
+/* Window hole is punched with a live CSS mask (no re-encoded image, zero
+   generation loss). --mx/--my/--mrx/--mry are set in px by fitMask() to
+   match the window's true position under object-fit:cover on any viewport.
+   The hole is cut slightly larger than the white area so the source's
+   blocky compression rim stays hidden inside transparency. */
+.cabin img{
+  filter:saturate(.96) contrast(1.03);
+  -webkit-mask-image:radial-gradient(ellipse var(--mrx,220px) var(--mry,340px) at var(--mx,50%) var(--my,49%), transparent 0, transparent 76%, black 100%);
+  mask-image:radial-gradient(ellipse var(--mrx,220px) var(--mry,340px) at var(--mx,50%) var(--my,49%), transparent 0, transparent 76%, black 100%);
+}
+/* soft vignette over cabin edges to sell depth */
+.vignette{position:absolute;inset:0;z-index:4;pointer-events:none;
+  background:radial-gradient(ellipse 62% 58% at 50.2% 49%, transparent 52%, var(--vignette) 100%);}
+.grain{position:absolute;inset:0;z-index:5;pointer-events:none;opacity:.14;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");}
+
+/* ---------- copy over stage ---------- */
+.copy{position:absolute;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;
+  text-align:center;pointer-events:none;padding:0 6vw}
+.hero-copy h1{font-family:var(--serif);font-weight:400;
+  font-size:clamp(44px,8.4vw,124px);line-height:.98;letter-spacing:-.01em}
+.hero-copy h1 em{font-style:italic;font-weight:400}
+.hero-copy p{margin:18px auto 0;max-width:560px;color:var(--muted);
+  font-size:clamp(13px,1.4vw,16px);line-height:1.7}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;
+  letter-spacing:.34em;text-transform:uppercase;color:var(--muted);
+  border:1px solid var(--line);border-radius:999px;padding:9px 16px;margin-bottom:22px;
+  backdrop-filter:blur(8px);background:var(--pill-dark-bg)}
+.eyebrow i{width:6px;height:6px;border-radius:50%;background:var(--accent);
+  box-shadow:0 0 12px var(--accent);display:inline-block}
+
+.scroll-hint{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:11;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--scroll-hint)}
+.scroll-hint .wheel{width:22px;height:36px;border:1px solid var(--wheel-border);
+  border-radius:12px;position:relative}
+.scroll-hint .wheel::after{content:"";position:absolute;left:50%;top:7px;width:3px;height:7px;
+  margin-left:-1.5px;border-radius:3px;background:var(--white);animation:wheel 1.6s ease-in-out infinite}
+@keyframes wheel{0%{transform:translateY(0);opacity:1}70%{transform:translateY(12px);opacity:0}100%{opacity:0}}
+
+.altitude{position:absolute;right:clamp(14px,3vw,34px);top:50%;transform:translateY(-50%) rotate(180deg);
+  writing-mode:vertical-rl;z-index:11;font-size:10px;letter-spacing:.42em;text-transform:uppercase;
+  color:var(--altitude)}
+.altitude b{color:var(--white)}
+

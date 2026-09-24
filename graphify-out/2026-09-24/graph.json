@@ -4,17 +4,19 @@
   "graph": {},
   "nodes": [
     {
-      "id": "script",
-      "label": "script.js",
+      "id": "readme",
+      "label": "README.md",
       "_origin": "ast",
       "community": 0,
-      "community_name": "script.js",
-      "file_type": "code",
-      "norm_label": "script.js",
-      "source_file": "script.js",
+      "community_name": "README.md",
+      "file_type": "document",
+      "node_kind": "page",
+      "norm_label": "readme.md",
+      "source_file": "README.md",
       "source_location": "L1"
     }
   ],
   "links": [],
-  "hyperedges": []
+  "hyperedges": [],
+  "built_at_commit": "3a755f6f4508d2089558d0fe023938b2179d33b8"
 }

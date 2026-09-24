@@ -1,8 +1,8 @@
 {
   "index.html": {
-    "mtime": 1790264149.612286,
-    "seen": 1790264152.367892,
-    "ast_hash": "07f890cc90e37f479a2618259418f758",
+    "mtime": 1790268361.7889614,
+    "seen": 1790268364.5341246,
+    "ast_hash": "19d2815c18e66c584c35b41c717332fc",
     "semantic_hash": ""
   },
   "imgs/main.webp": {
@@ -23,40 +23,22 @@
     "ast_hash": "c8da3a49eacf0957e67b002894290642",
     "semantic_hash": ""
   },
-  "imgs/clouds.jpg": {
-    "mtime": 1790263861.6480248,
-    "seen": 1790263926.8790367,
-    "ast_hash": "a2dd8cac81e096e57863dc0e016785eb",
-    "semantic_hash": ""
-  },
-  "imgs/clouds2.jpg": {
-    "mtime": 1790263882.3654716,
-    "seen": 1790263926.8790388,
-    "ast_hash": "62c1bfbe2b8ddd8419a49de5e10c4a10",
-    "semantic_hash": ""
-  },
-  "imgs/clouds3.jpg": {
-    "mtime": 1790263908.2086804,
-    "seen": 1790263926.8790405,
-    "ast_hash": "3704c07145d1a4496bfb9be93e68dd24",
-    "semantic_hash": ""
-  },
-  "imgs/clouds5.webp": {
-    "mtime": 1790210575.1388369,
-    "seen": 1790263937.9881837,
-    "ast_hash": "0ff40c7ff84bf43825a493c84b95401f",
-    "semantic_hash": ""
-  },
-  "imgs/clouds6.jpg": {
-    "mtime": 1790210604.0002854,
-    "seen": 1790263947.8737097,
-    "ast_hash": "786a8d15226fc25517aad39f8a3a6255",
-    "semantic_hash": ""
-  },
   "README.md": {
     "mtime": 1790264129.5008307,
     "seen": 1790264142.9530315,
     "ast_hash": "44c2b4d2dc933b0efbdc42fda049a466",
+    "semantic_hash": ""
+  },
+  "imgs/second.webp": {
+    "mtime": 1790267013.7471938,
+    "seen": 1790267075.3666646,
+    "ast_hash": "923b7d26a3fd49d3796de411845185d7",
+    "semantic_hash": ""
+  },
+  "app.js": {
+    "mtime": 1790268369.2210374,
+    "seen": 1790268372.3467119,
+    "ast_hash": "65d24e06f7415bf28c19d222c7b5b6be",
     "semantic_hash": ""
   }
 }
