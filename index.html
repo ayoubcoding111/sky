@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Above the Clouds — Scroll to Fly | GSAP Window Zoom</title>
+<meta name="description" content="GSAP ScrollTrigger plane-window zoom inspired by jeskojets.com — cabin (main.webp) with transparent window, sky (sky.webp) behind." />
+<style>
+  :root{
+    --bg:#0b0e13;
+    --ink:#f4f1ea;
+    --muted:rgba(244,241,234,.68);
+    --line:rgba(255,255,255,.16);
+    --accent:#9fd8ff;
+    --paper:#e9f3fa;
+    --paper-ink:#0c1a29;
+    --serif:"Didot","Bodoni MT",Playfair Display,Georgia,serif;
+    --sans:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:auto}
+  html.lenis,html.lenis body{height:auto}
+  .lenis.lenis-smooth{scroll-behavior:auto!important}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:var(--sans);overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* ---------- progress ---------- */
+  .progress{position:fixed;top:0;left:0;height:3px;width:100%;z-index:60;
+    background:rgba(255,255,255,.08)}
+  .progress span{display:block;height:100%;width:100%;transform-origin:0 50%;
+    transform:scaleX(0);background:linear-gradient(90deg,#9fd8ff,#fff)}
+
+  /* ---------- nav ---------- */
+  nav{position:fixed;inset:0 0 auto 0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px clamp(18px,4vw,44px);
+    mix-blend-mode:difference;color:#fff}
+  .brand{font-family:var(--serif);letter-spacing:.28em;font-size:13px;text-transform:uppercase}
+  .brand small{display:block;letter-spacing:.42em;font-size:9px;opacity:.7;margin-top:4px;font-family:var(--sans)}
+  .nav-links{display:flex;gap:26px;font-size:12px;letter-spacing:.22em;text-transform:uppercase}
+  .nav-links a{color:inherit;text-decoration:none;opacity:.75}
+  .nav-links a:hover{opacity:1}
+  @media(max-width:640px){.nav-links{display:none}}
+
+  /* ---------- pinned flight ---------- */
+  #flight{position:relative;height:100vh;height:100svh;overflow:hidden;background:#000}
+  .stage{position:absolute;inset:0;overflow:hidden;background:#000}
+  .layer{position:absolute;inset:-4%;will-change:transform}
+  .layer img{width:100%;height:100%;object-fit:cover;display:block}
+
+  .sky{transform-origin:50% 62%;z-index:1}
+  .sky img{filter:saturate(1.06) contrast(1.02)}
+  .sky::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(4,10,20,.18),transparent 30%,transparent 62%,rgba(4,10,20,.34));}
+
+  /* ONE drifting cloud band (moving.webp), pinned to the sky's top edge —
+     scroll carries it right-to-left and out through the top. */
+  .drift{position:absolute;z-index:2;pointer-events:none;will-change:transform;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+  .layer .drift img{display:block;width:100%;height:auto;object-fit:contain}
+  .drift-single{width:170%;left:-35%;top:5%;opacity:.95}
+  /* two small cloud puffs (black backgrounds dropped via screen blend),
+     crossing left -> right against the band */
+  .puff{position:absolute;z-index:2;pointer-events:none;will-change:transform;mix-blend-mode:screen}
+  .layer .puff img{display:block;width:100%;height:auto}
+  #puffA{width:15%;left:10%;top:55%}
+  #puffB{width:10%;left:28%;top:55%;opacity:.9}
+  /* bottom of the sky melts into the page background */
+  .sky-fade{position:absolute;left:0;right:0;bottom:0;height:36%;z-index:6;
+    pointer-events:none;opacity:0;
+    background:linear-gradient(180deg,rgba(233,243,250,0) 0%,rgba(233,243,250,.55) 55%,#e9f3fa 100%)}
+  /* photo wrap is sized to the photo's exact cover box in JS — clouds live
+     inside it, so their % positions are photo fractions and glide with it */
+  .sky-photo{position:absolute;top:0;left:0;width:100%;will-change:transform}
+  #skyPhoto{width:100%;height:100%;object-fit:cover;display:block}
+
+  .cabin{z-index:3;transform-origin:50.2% 49%}
+  /* Window hole is punched with a live CSS mask (no re-encoded image, zero
+     generation loss). --mx/--my/--mrx/--mry are set in px by fitMask() to
+     match the window's true position under object-fit:cover on any viewport.
+     The hole is cut slightly larger than the white area so the source's
+     blocky compression rim stays hidden inside transparency. */
+  .cabin img{
+    filter:saturate(.96) contrast(1.03);
+    -webkit-mask-image:radial-gradient(ellipse var(--mrx,220px) var(--mry,340px) at var(--mx,50%) var(--my,49%), transparent 0, transparent 76%, black 100%);
+    mask-image:radial-gradient(ellipse var(--mrx,220px) var(--mry,340px) at var(--mx,50%) var(--my,49%), transparent 0, transparent 76%, black 100%);
+  }
+  /* soft vignette over cabin edges to sell depth */
+  .vignette{position:absolute;inset:0;z-index:4;pointer-events:none;
+    background:radial-gradient(ellipse 62% 58% at 50.2% 49%, transparent 52%, rgba(0,0,0,.42) 100%);}
+  .grain{position:absolute;inset:0;z-index:5;pointer-events:none;opacity:.14;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");}
+
+  /* ---------- copy over stage ---------- */
+  .copy{position:absolute;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;
+    text-align:center;pointer-events:none;padding:0 6vw}
+  /* sky text docks at the bottom — the foot of the sky photo */
+  .copy-bottom{align-items:flex-end;padding:0 6vw 8vh}
+  /* sky text sits on the faded foot of the photo: dark ink on paper */
+  .copy-bottom .sky-copy{color:var(--paper-ink)}
+  .copy-bottom .sky-copy h2{color:var(--paper-ink);text-shadow:0 1px 0 rgba(255,255,255,.65)}
+  .copy-bottom .sky-copy p{color:#3f5c74}
+  .copy-bottom .eyebrow{color:#33506a;border-color:rgba(12,26,41,.28);background:rgba(255,255,255,.55)}
+  .copy-bottom .stats b{color:var(--paper-ink)}
+  .copy-bottom .stats span{color:#4a6478}
+  .hero-copy h1{font-family:var(--serif);font-weight:400;
+    font-size:clamp(44px,8.4vw,124px);line-height:.98;letter-spacing:-.01em}
+  .hero-copy h1 em{font-style:italic;font-weight:400}
+  .hero-copy p{margin:18px auto 0;max-width:560px;color:var(--muted);
+    font-size:clamp(13px,1.4vw,16px);line-height:1.7}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;
+    letter-spacing:.34em;text-transform:uppercase;color:var(--muted);
+    border:1px solid var(--line);border-radius:999px;padding:9px 16px;margin-bottom:22px;
+    backdrop-filter:blur(8px);background:rgba(0,0,0,.28)}
+  .eyebrow i{width:6px;height:6px;border-radius:50%;background:var(--accent);
+    box-shadow:0 0 12px var(--accent);display:inline-block}
+
+  .sky-copy{max-width:900px}
+  .sky-copy h2{font-family:var(--serif);font-weight:400;
+    font-size:clamp(36px,6vw,84px);line-height:1.02}
+  .sky-copy h2 em{font-style:italic}
+  .sky-copy p{margin:20px auto 0;max-width:600px;color:rgba(255,255,255,.82);line-height:1.7}
+  .stats{display:flex;gap:clamp(20px,4vw,64px);justify-content:center;margin-top:34px;flex-wrap:wrap}
+  .stats div{text-align:center}
+  .stats b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(26px,3.4vw,44px)}
+  .stats span{font-size:11px;letter-spacing:.28em;text-transform:uppercase;opacity:.75}
+
+  .scroll-hint{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:11;
+    display:flex;flex-direction:column;align-items:center;gap:10px;
+    font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:rgba(255,255,255,.8)}
+  .scroll-hint .wheel{width:22px;height:36px;border:1px solid rgba(255,255,255,.5);
+    border-radius:12px;position:relative}
+  .scroll-hint .wheel::after{content:"";position:absolute;left:50%;top:7px;width:3px;height:7px;
+    margin-left:-1.5px;border-radius:3px;background:#fff;animation:wheel 1.6s ease-in-out infinite}
+  @keyframes wheel{0%{transform:translateY(0);opacity:1}70%{transform:translateY(12px);opacity:0}100%{opacity:0}}
+
+  .altitude{position:absolute;right:clamp(14px,3vw,34px);top:50%;transform:translateY(-50%) rotate(180deg);
+    writing-mode:vertical-rl;z-index:11;font-size:10px;letter-spacing:.42em;text-transform:uppercase;
+    color:rgba(255,255,255,.55)}
+  .altitude b{color:#fff}
+
+  /* ---------- sections after pin: paper theme to match the sky fade ---------- */
+  section.content{position:relative;background:var(--paper);color:var(--paper-ink);padding:clamp(80px,10vw,140px) clamp(20px,6vw,80px)}
+  .kicker{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:#0e7cc0;margin-bottom:18px}
+  .content h2{font-family:var(--serif);font-weight:400;font-size:clamp(32px,4.6vw,64px);line-height:1.05;max-width:16ch;color:#0c1a29}
+  .content p.lead{margin-top:18px;max-width:62ch;color:#496274;line-height:1.8}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+  @media(max-width:860px){.cards{grid-template-columns:1fr}}
+  .card{border:1px solid rgba(12,26,41,.1);border-radius:18px;overflow:hidden;background:#fff;
+    box-shadow:0 18px 50px -30px rgba(12,40,70,.35)}
+  .card .ph{aspect-ratio:16/10;overflow:hidden}
+  .card .ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s ease}
+  .card:hover .ph img{transform:scale(1.06)}
+  .card .tx{padding:22px}
+  .card .tx h3{font-family:var(--serif);font-weight:400;font-size:24px;margin-bottom:8px;color:#0c1a29}
+  .card .tx p{color:#496274;font-size:14px;line-height:1.7}
+  .fleet{position:relative;border-radius:22px;overflow:hidden;margin-top:54px;min-height:58vh;
+    display:flex;align-items:flex-end}
+  .fleet img{position:absolute;inset:0;width:100%;height:130%;object-fit:cover}
+  .fleet .overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,.72))}
+  .fleet .tx{position:relative;padding:clamp(24px,4vw,54px)}
+  .fleet .tx .kicker{color:var(--accent)}
+  .fleet .tx h3{font-family:var(--serif);font-size:clamp(30px,4vw,56px);font-weight:400;color:#fff}
+  .fleet .lead{color:rgba(255,255,255,.85)}
+  footer{padding:34px clamp(20px,6vw,80px) 60px;color:#5b7285;font-size:12px;letter-spacing:.18em;
+    text-transform:uppercase;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    border-top:1px solid rgba(12,26,41,.12);background:var(--paper)}
+  footer a{color:#0c1a29;text-decoration:none}
+  .hint-note{margin-top:14px;font-size:12px;letter-spacing:.06em;text-transform:none;color:#6b8499}
+  code{background:rgba(12,26,41,.08);padding:2px 8px;border-radius:6px;font-size:12px}
+</style>
+</head>
+<body>
+
+<div class="progress"><span id="progressBar"></span></div>
+
+<nav>
+  <div class="brand">AERIS<small>Private Aviation</small></div>
+  <div class="nav-links">
+    <a href="#flight">Flight</a><a href="#about">About</a><a href="#fleet">Fleet</a><a href="#contact">Contact</a>
+  </div>
+  <div style="font-size:11px;letter-spacing:.24em">✈ 5000+ MISSIONS</div>
+</nav>
+
+<!-- ============ PINNED ZOOM ============ -->
+<section id="flight">
+  <div class="stage" id="stage">
+    <!-- SKY: behind everything -->
+    <div class="layer sky" id="skyLayer">
+      <div class="sky-photo" id="skyPhotoWrap">
+        <img id="skyPhoto" src="imgs/sky.webp" alt="Sky above the clouds" />
+        <!-- cloud band, pushed down into view -->
+        <div class="drift drift-single" id="driftSingle"><img src="imgs/moving.webp" alt="" /></div>
+        <!-- two puffs on the same line -->
+        <div class="puff" id="puffA"><img src="imgs/1.webp" alt="" /></div>
+        <div class="puff" id="puffB"><img src="imgs/images.jpg" alt="" /></div>
+      </div>
+    </div>
+
+    <!-- CABIN: original main.webp at full source quality. The window hole is a
+         live CSS mask (see fitMask), so the file is never re-compressed. -->
+    <div class="layer cabin" id="cabinLayer">
+      <img id="cabinImg" src="imgs/main.webp" alt="Airplane cabin window" fetchpriority="high" decoding="async" />
+    </div>
+
+    <div class="vignette"></div>
+    <div class="grain"></div>
+    <div class="sky-fade" id="skyFade"></div>
+
+    <!-- copy state 1 -->
+    <div class="copy">
+      <div class="hero-copy" id="heroCopy">
+        <span class="eyebrow"><i></i> Private jet charter · Worldwide</span>
+        <h1>We are <em>movement.</em><br/>We are distinction.</h1>
+        <p>Every flight is designed around your comfort, time and ambitions.<br/>Scroll — and glide closer to the window.</p>
+      </div>
+    </div>
+
+    <!-- copy state 2 (revealed at the foot of the sky) -->
+    <div class="copy copy-bottom">
+      <div class="sky-copy" id="skyCopy" style="opacity:0">
+        <span class="eyebrow"><i></i> Above the weather · 15,544 m</span>
+        <h2>Your <em>freedom</em> to enjoy life.</h2>
+        <p>From the first call to landing, every journey is tailored to your comfort, privacy and schedule — across 150+ countries.</p>
+        <div class="stats">
+          <div><b>5K+</b><span>Missions</span></div>
+          <div><b>174</b><span>Countries</span></div>
+          <div><b>24/7</b><span>Dispatch</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-hint" id="scrollHint">
+      <div class="wheel"></div>
+      <div>Scroll down</div>
+    </div>
+    <div class="altitude">ALT <b id="altNum">3,200</b> FT — CABIN VIEW</div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="content" id="about">
+  <div class="kicker">01 — The operator</div>
+  <h2>Global private aviation, with a personal touch.</h2>
+  <p class="lead">Inspired by <code>jeskojets.com</code>: a full-viewport cabin wall pins on scroll, then the camera pushes smoothly <em>through</em> the window frame into open sky. Built here with GSAP ScrollTrigger scrub, a live CSS mask that punches the window hole in <code>main.webp</code> at full source quality, and <code>sky.webp</code> staged behind it.</p>
+  <p class="hint-note">Scroll back up to replay the zoom. The window is a real transparent hole — the sky you see through it is a separate layer drifting on its own parallax curve.</p>
+  <div class="cards">
+    <div class="card"><div class="ph"><img src="imgs/sec.jpg" alt="Clouds" /></div><div class="tx"><h3>Direct access</h3><p>Fly beyond boundaries — seamless, personalised travel from first call to landing.</p></div></div>
+    <div class="card"><div class="ph"><img src="imgs/sky.webp" alt="Sky" /></div><div class="tx"><h3>Precision</h3><p>Route planning, in-flight service and crew held to the highest global standard.</p></div></div>
+    <div class="card"><div class="ph"><img src="imgs/main.webp" alt="Cabin (original)" /></div><div class="tx"><h3>Full-quality plate</h3><p>The live hero uses <code>main.webp</code> untouched — the window is a CSS mask, never a re-compressed copy.</p></div></div>
+  </div>
+</section>
+
+<!-- ============ FLEET ============ -->
+<section class="content" id="fleet" style="padding-top:0">
+  <div class="kicker">02 — The view outside</div>
+  <h2>Ultra-long-range calm.</h2>
+  <p class="lead">Once the camera passes the frame, the cabin fades and the sky owns the viewport — the same handoff jeskojets.com uses before its fleet section.</p>
+  <div class="fleet">
+    <img id="fleetImg" src="imgs/sec.jpg" alt="Above the clouds" />
+    <div class="overlay"></div>
+    <div class="tx">
+      <div class="kicker">Gulfstream 650ER · Reference layout</div>
+      <h3>11,263 km · 480 kts · 15,544 m</h3>
+      <p class="lead" style="max-width:56ch">A true time-saving machine — Tokyo and New York an hour closer, at 92% of the speed of sound.</p>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div>© 2026 AERIS — GSAP window-zoom study · <a href="https://jeskojets.com/" target="_blank" rel="noopener">ref: jeskojets.com</a></div>
+  <div><a href="#flight">Back to window ↑</a></div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+(function(){
+  gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.config({ ignoreMobileResize: true });
+
+  // ---- smooth scroll (like the reference site) ----
+  let lenis = null;
+  try{
+    lenis = new Lenis({ smoothWheel:true, lerp:0.09 });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function(time){ lenis.raf(time*1000); });
+    gsap.ticker.lagSmoothing(0);
+  }catch(e){ /* Lenis optional */ }
+
+  // anchor links work with Lenis
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(ev){
+      var id = a.getAttribute('href');
+      if(id.length > 1 && document.querySelector(id)){
+        ev.preventDefault();
+        if(lenis){ lenis.scrollTo(id, {offset:0, duration:1.4}); }
+        else{ document.querySelector(id).scrollIntoView({behavior:'smooth'}); }
+      }
+    });
+  });
+
+  var isMobile = window.matchMedia('(max-width: 700px)').matches;
+  var CABIN_SCALE = isMobile ? 9 : 7.2; // overshoot guarantees the frame leaves the viewport on any aspect
+
+  /* Window geometry in source-image fractions (measured from main.webp,
+     5000x2500). Hole is slightly larger than the white area so compression
+     jaggies on the rim fall inside transparency. Measured from layout size
+     (offsetWidth/offsetHeight), which GSAP zoom transforms cannot distort —
+     so the hole never drifts off the window mid-scroll. */
+  var WIN = { cx:0.502, cy:0.49, rx:0.104, ry:0.283, iw:5000, ih:2500 };
+  var cabinImg = document.getElementById('cabinImg');
+  function fitMask(){
+    if(!cabinImg || !cabinImg.naturalWidth) return;
+    var W = cabinImg.offsetWidth, H = cabinImg.offsetHeight;
+    if(!W || !H) return;
+    var iw = cabinImg.naturalWidth, ih = cabinImg.naturalHeight;
+    var s = Math.max(W/iw, H/ih); // object-fit:cover scale
+    var rw = iw*s, rh = ih*s;
+    var ox = (W-rw)/2, oy = (H-rh)/2;
+    cabinImg.style.setProperty('--mx', (ox + WIN.cx*rw).toFixed(1)+'px');
+    cabinImg.style.setProperty('--my', (oy + WIN.cy*rh).toFixed(1)+'px');
+    cabinImg.style.setProperty('--mrx', (WIN.rx*rw).toFixed(1)+'px');
+    cabinImg.style.setProperty('--mry', (WIN.ry*rh).toFixed(1)+'px');
+  }
+  if(cabinImg && cabinImg.complete && cabinImg.naturalWidth){ fitMask(); }
+  if(cabinImg){ cabinImg.addEventListener('load', fitMask); }
+  window.addEventListener('resize', fitMask);
+  ScrollTrigger.addEventListener('refresh', fitMask);
+
+  /* Sky photo box: sized to the photo's exact cover rect. Clouds live inside
+     the wrap, so their % positions are true photo fractions — the scroll
+     glide carries clouds and photo as one. No ScrollTrigger on the clouds. */
+  var skyLayer = document.getElementById('skyLayer');
+  var skyPhotoWrap = document.getElementById('skyPhotoWrap');
+  var skyPhoto = document.getElementById('skyPhoto');
+  var skyTravel = { y: 0 };
+  function fitSky(){
+    if(!skyLayer || !skyPhotoWrap || !skyPhoto || !skyPhoto.naturalWidth) return;
+    var W = skyLayer.offsetWidth, H = skyLayer.offsetHeight;
+    if(!W || !H) return;
+    var iw = skyPhoto.naturalWidth, ih = skyPhoto.naturalHeight;
+    var s = Math.max(W/iw, H/ih); // object-fit:cover scale
+    var rw = iw*s, rh = ih*s;
+    skyPhotoWrap.style.width = rw.toFixed(1)+'px';
+    skyPhotoWrap.style.height = rh.toFixed(1)+'px';
+    skyPhotoWrap.style.left = ((W-rw)/2).toFixed(1)+'px';
+    skyTravel.y = -(rh - H);
+  }
+  function fitSkyThenRefresh(){ fitSky(); ScrollTrigger.refresh(); }
+  if(skyPhoto.complete && skyPhoto.naturalWidth){ fitSky(); }
+  else{ skyPhoto.addEventListener('load', fitSkyThenRefresh); }
+  window.addEventListener('resize', fitSky);
+  ScrollTrigger.addEventListener('refresh', fitSky);
+
+  // ---- intro: gentle settle on load (touches ONLY #stage + text —
+  // never cabin/sky scale, which belong to the scrub timeline; sharing those
+  // caused the blink/zoom snap when scrolling during the first second) ----
+  var intro = gsap.timeline({defaults:{ease:'power3.out'}});
+  intro.from('#stage',{opacity:0, scale:1.05, duration:1.4},0)
+       .from('.hero-copy .eyebrow',{y:18, opacity:0, duration:.8},.3)
+       .from('.hero-copy h1',{y:60, opacity:0, duration:1},.4)
+       .from('.hero-copy p',{y:26, opacity:0, duration:.9},.6)
+       .from('nav',{y:-24, opacity:0, duration:.8},.5)
+       .from('.scroll-hint',{opacity:0, duration:.8},.9)
+       .from('.drift',{opacity:0, duration:1.4},.7)
+       .from('.puff',{opacity:0, duration:1.4},.8);
+
+  // ---- main scroll zoom: pin + scrub ----
+  var tl = gsap.timeline({
+    defaults:{ease:'none'},
+    scrollTrigger:{
+      trigger:'#flight',
+      start:'top top',
+      end:'+=350%',
+      scrub:1.2,
+      pin:true,
+      anticipatePin:1,
+      invalidateOnRefresh:true,
+      onUpdate:function(self){
+        document.getElementById('progressBar').style.transform = 'scaleX(' + self.progress + ')';
+        // fake altimeter for delight
+        var alt = Math.round(3200 + self.progress * (45500 - 3200));
+        document.getElementById('altNum').textContent = alt.toLocaleString('en-US');
+      }
+    }
+  });
+
+  // 0.00 - 0.22 : hero copy drifts up & out, hint fades
+  tl.to('#heroCopy',{yPercent:-34, opacity:0, scale:.96, duration:.22, ease:'power1.in'},0);
+  tl.to('#scrollHint',{opacity:0, duration:.12},0);
+
+  // 0.00 - 1.00 : THE ZOOM — cabin rushes past camera, sky drifts slower (depth)
+  tl.to('#cabinLayer',{scale:CABIN_SCALE, xPercent: -0.4, duration:1, ease:'power1.inOut',
+      transformOrigin:'50.2% 49%'},0);
+  // Phase 1 — push through the window, parked on the sky's very top edge
+  tl.to('#skyLayer',{scale:1.18, yPercent:0, duration:.3, ease:'power1.inOut'},0);
+  // Phase 2 — starts early, while the window is still opening: the layer grows
+  // while the photo wrap glides up through its full length. Clouds ride
+  // inside the wrap, so they scroll with the photo itself.
+  tl.to('#skyLayer',{scale:1.45, duration:.85, ease:'power1.inOut'},.15);
+  tl.to('#skyPhotoWrap',{y:function(){ return skyTravel.y; }, duration:.85, ease:'power1.inOut'},.15);
+
+  // autonomous drift, all the time (linear yoyo = constant speed, no pauses,
+  // runs on the img so it never fights the scroll-scrubbed wrapper)
+  gsap.fromTo('#driftSingle img',{xPercent:4},{xPercent:-4, duration:6, ease:'none', repeat:-1, yoyo:true});
+  // puffs breathe on their own too — wide infinite sweeps, opposite phases
+  gsap.fromTo('#puffA img',{xPercent:25},{xPercent:-25, duration:10, ease:'none', repeat:-1, yoyo:true});
+  gsap.fromTo('#puffB img',{xPercent:-30},{xPercent:30, duration:14, ease:'none', repeat:-1, yoyo:true});
+
+  // 0.72 - 1.00 : sky headline rises at the foot of the sky, once glided down
+  tl.fromTo('#skyCopy',{opacity:0, y:90, scale:.97},{opacity:1, y:0, scale:1, duration:.24, ease:'power1.out'},.72);
+
+  // 0.80 - 1.00 : cabin fully gone (it has left the frame anyway), sky settles full-bleed
+  tl.to('#cabinLayer',{opacity:0, duration:.12, ease:'power1.out'},.84);
+  // 0.68 - 1.00 : sky foot melts into the page background, cabin hands off
+  tl.to('#skyFade',{opacity:1, duration:.2, ease:'power1.out'},.68);
+  tl.to('.vignette',{opacity:0, duration:.2},.8);
+
+  // ---- fleet image parallax after the pin ----
+  gsap.to('#fleetImg',{yPercent:-14, ease:'none',
+    scrollTrigger:{trigger:'.fleet', start:'top bottom', end:'bottom top', scrub:true}});
+
+  // ---- reveal cards ----
+  gsap.utils.toArray('.card').forEach(function(card, i){
+    gsap.from(card,{y:46, opacity:0, duration:.9, ease:'power3.out',
+      scrollTrigger:{trigger:card, start:'top 88%'},
+      delay:(i%3)*.08});
+  });
+
+  window.addEventListener('load', function(){ ScrollTrigger.refresh(); });
+})();
+</script>
+</body>
+</html>
