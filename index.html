@@ -8,7 +8,13 @@
       name="description"
       content="GSAP ScrollTrigger plane-window zoom inspired by jeskojets.com — cabin (main.webp) with transparent window, sky (sky.webp) behind."
     />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Inter+Tight:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css?v=4" />
   </head>
   <body>
     <div class="progress"><span id="progressBar"></span></div>
@@ -19,6 +25,10 @@
         ✈ 5000+ MISSIONS
       </div>
     </nav>
+
+    <!-- THE window label: fixed so it can travel from the window to the top
+         header on scroll and stay there. Click = back home. -->
+    <a href="#flight" id="windowBrand" class="h-window-brand">Jesko Jets</a>
 
     <!-- ============ PINNED ZOOM ============ -->
     <section id="flight">
@@ -35,16 +45,11 @@
                 aria-hidden="true"
               />
             </div>
-            <!-- two puffs on the same line -->
-            <div class="puff" id="puffA"><img src="imgs/1.webp" alt="" /></div>
-            <div class="puff" id="puffB">
-              <img src="imgs/images.jpg" alt="" />
-            </div>
           </div>
         </div>
 
-        <!-- CABIN: original main.webp at full source quality. The window hole is a
-         live CSS mask (see fitMask), so the file is never re-compressed. -->
+        <!-- CABIN: main.webp + text glued together. The copy lives INSIDE
+         #cabinLayer so the single GSAP cabin zoom carries image + text as one. -->
         <div class="layer cabin" id="cabinLayer">
           <img
             id="cabinImg"
@@ -53,29 +58,37 @@
             fetchpriority="high"
             decoding="async"
           />
+          <div class="copy">
+            <div class="hero-copy" id="heroCopy">
+              <h1 class="h-line h-left h-top">We are<br />movement</h1>
+              <h1 class="h-line h-right h-mid">We are<br />distinction</h1>
+
+              <div class="h-bottom-left" id="heroBottomLeft">
+                <h2 class="h-sub">Your<br />freedom to<br />enjoy life</h2>
+                <span class="h-rule"></span>
+                <p id="heroPara">
+                  Every flight is designed around your comfort,<br />time, and
+                  ambitions — so you can focus on<br />what truly matters, while
+                  we take care of<br />everything else.
+                </p>
+              </div>
+
+              <div class="h-bottom-center" id="bookRow">
+                <button class="book-btn" type="button">Book the Flight</button>
+                <span class="book-plane" aria-hidden="true">✈</span>
+              </div>
+
+              <div class="h-bottom-right" id="journeyRow">
+                <span class="scroll-down"><i>∨</i>SCROLL DOWN</span>
+                <span class="start-journey">TO START THE JOURNEY</span>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="vignette"></div>
         <div class="grain"></div>
         <div class="sky-fade" id="skyFade"></div>
-
-        <!-- copy state 1 -->
-        <div class="copy">
-          <div class="hero-copy" id="heroCopy">
-            <span class="eyebrow"><i></i> Private jet charter · Worldwide</span>
-            <h1>We are <em>movement.</em><br />We are distinction.</h1>
-            <p>
-              Every flight is designed around your comfort, time and
-              ambitions.<br />Scroll — and glide closer to the window.
-            </p>
-          </div>
-        </div>
-
-        <div class="scroll-hint" id="scrollHint">
-          <div class="wheel"></div>
-          <div>Scroll down</div>
-        </div>
-        <div class="altitude">ALT <b id="altNum">3,200</b> FT — CABIN VIEW</div>
       </div>
 </section>
 
@@ -87,6 +100,6 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
-    <script src="app.js"></script>
+    <script src="app.js?v=4"></script>
   </body>
 </html>

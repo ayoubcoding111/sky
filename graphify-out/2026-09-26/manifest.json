@@ -1,8 +1,8 @@
 {
   "index.html": {
-    "mtime": 1790380252.5943503,
-    "seen": 1790380255.42959,
-    "ast_hash": "021cb8acd0fe26d6c1e43d5e7c74a73c",
+    "mtime": 1790379814.121665,
+    "seen": 1790379817.1184418,
+    "ast_hash": "f3801c2d8974eea3792482710948e753",
     "semantic_hash": ""
   },
   "imgs/main.webp": {
@@ -36,9 +36,9 @@
     "semantic_hash": ""
   },
   "app.js": {
-    "mtime": 1790380507.383288,
-    "seen": 1790380510.2588813,
-    "ast_hash": "969b71de24b18b918aa0731b0011348d",
+    "mtime": 1790379512.9047062,
+    "seen": 1790379515.653379,
+    "ast_hash": "d80f12964ed9ca6bb9d369cdf8dc47f5",
     "semantic_hash": ""
   },
   ".claude/settings.local.json": {
