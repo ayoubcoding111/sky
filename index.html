@@ -14,15 +14,23 @@
       href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Inter+Tight:wght@300..700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=4" />
+    <link rel="stylesheet" href="styles.css?v=5" />
   </head>
   <body>
     <div class="progress"><span id="progressBar"></span></div>
 
-    <nav>
-      <div class="brand">AERIS<small>Private Aviation</small></div>
-      <div style="font-size: 11px; letter-spacing: 0.24em">
-        ✈ 5000+ MISSIONS
+    <nav id="siteNav">
+      <div class="nav-links" id="navLinks">
+        <a href="#about" data-scroll>About</a>
+        <a href="#services" data-scroll>Services</a>
+        <a href="#advantages" data-scroll>Advantages</a>
+        <a href="#contact" data-scroll>Contact</a>
+      </div>
+      <div class="nav-right">
+        <div class="nav-meta">✈ 5000+ MISSIONS</div>
+        <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
       </div>
     </nav>
 
@@ -74,8 +82,7 @@
               </div>
 
               <div class="h-bottom-center" id="bookRow">
-                <button class="book-btn" type="button">Book the Flight</button>
-                <span class="book-plane" aria-hidden="true">✈</span>
+                <button class="book-btn btn-donate" type="button"><span class="btn-plane" aria-hidden="true">✈</span>Book the Flight</button>
               </div>
 
               <div class="h-bottom-right" id="journeyRow">
@@ -92,10 +99,115 @@
       </div>
 </section>
 
-<!-- ============ SKY EXTENSION (empty, same sky colour, extends downward) ============ -->
-<section class="sky-extend">
-  <img src="imgs/second.webp" alt="Above the clouds" />
-</section>
+<!-- ============ CONTENT: all text on top of one sky image, scrolling together ============ -->
+<main class="page">
+  <img class="page-bg" src="imgs/second.webp" alt="" aria-hidden="true" />
+  <div class="page-shade" aria-hidden="true"></div>
+
+<section id="about" class="section about">
+  <div class="wrap about-grid">
+      <div class="kicker reveal">01 — About</div>
+      <h2 class="sec-title reveal">About Aeris</h2>
+      <p class="sec-lead reveal">Tell me what to write here — your story, fleet, experience.</p>
+      <div class="about-cards">
+        <div class="about-card reveal">
+          <h3>Who we are</h3>
+          <p><!-- YOUR TEXT: who you are --></p>
+        </div>
+        <div class="about-card reveal">
+          <h3>What we do</h3>
+          <p><!-- YOUR TEXT: what you do --></p>
+        </div>
+        <div class="about-card reveal">
+          <h3>Stats / trust</h3>
+          <p><!-- YOUR TEXT: e.g. 5000+ missions, 24/7, etc. --></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="section services">
+    <div class="wrap">
+      <div class="kicker reveal">02 — Services</div>
+      <h2 class="sec-title reveal">Our Services</h2>
+      <p class="sec-lead reveal">On-demand charter, full aircraft management and door-to-door concierge — one team for the whole journey.</p>
+      <div class="svc-grid">
+        <article class="svc-card reveal">
+          <div class="svc-num">01</div>
+          <h3>Private Charter</h3>
+          <p>On-demand flights on light, midsize and long-range jets. Quote in minutes, wheels up in hours.</p>
+        </article>
+        <article class="svc-card reveal">
+          <div class="svc-num">02</div>
+          <h3>Aircraft Management</h3>
+          <p>Crew, maintenance, compliance and operations handled end-to-end, with revenue when you don't fly.</p>
+        </article>
+        <article class="svc-card reveal">
+          <div class="svc-num">03</div>
+          <h3>Concierge & Transfers</h3>
+          <p>Ground transport, catering, hotels and last-mile details arranged around your schedule.</p>
+        </article>
+        <article class="svc-card reveal">
+          <div class="svc-num">04</div>
+          <h3>Empty Legs</h3>
+          <p>One-way deals on repositioning flights — same jets and crew, up to 50% less. Ask what's flying this week.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="advantages" class="section advantages">
+    <div class="wrap adv-grid">
+      <div>
+        <div class="kicker reveal">03 — Advantages</div>
+        <h2 class="sec-title reveal">Why fly with us</h2>
+        <p class="sec-lead reveal">Safety-first operations, human service 24/7, and honest pricing — the reasons 5000+ missions trust Aeris.</p>
+      </div>
+      <ul class="adv-list">
+        <li class="reveal"><span>01</span><div><h3>Safety first</h3><p>Audited operators, veteran crews, strict maintenance — no compromises, ever.</p></div></li>
+        <li class="reveal"><span>02</span><div><h3>Available 24/7</h3><p>A real human on the line day and night. Changes, delays, urgent trips — handled.</p></div></li>
+        <li class="reveal"><span>03</span><div><h3>Comfort & privacy</h3><p>Private terminals, your cabin setup, total discretion from takeoff to touchdown.</p></div></li>
+        <li class="reveal"><span>04</span><div><h3>Transparent pricing</h3><p>One all-in quote up front. No hidden fees, no surprises after landing.</p></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="contact" class="section contact">
+    <div class="wrap contact-grid">
+      <div>
+        <div class="kicker reveal">04 — Contact</div>
+        <h2 class="sec-title reveal">Get in touch</h2>
+        <p class="sec-lead reveal">Tell me your phone, email, location, hours.</p>
+        <ul class="contact-info reveal">
+          <li><strong>Phone</strong><span>+00 000 000 000</span></li>
+          <li><strong>Email</strong><span>hello@aeris.example</span></li>
+          <li><strong>Base</strong><span>Your city / airport</span></li>
+        </ul>
+      </div>
+      <form class="contact-form reveal" id="contactForm" onsubmit="return false;">
+        <label>Name<input type="text" name="name" placeholder="Your name" required /></label>
+        <label>Email<input type="email" name="email" placeholder="you@email.com" required /></label>
+        <label>Message<textarea name="message" rows="4" placeholder="Tell us about your flight…"></textarea></label>
+        <button type="submit" class="book-btn">Send Request</button>
+        <p class="form-note" id="formNote"></p>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="wrap foot-row">
+      <div class="brand">AERIS<small>Private Aviation</small></div>
+      <div class="foot-links">
+        <a href="#about" data-scroll>About</a>
+        <a href="#services" data-scroll>Services</a>
+        <a href="#advantages" data-scroll>Advantages</a>
+        <a href="#contact" data-scroll>Contact</a>
+      </div>
+      <div class="foot-copy">© 2026 Aeris. All rights reserved.</div>
+    </div>
+  </footer>
+
+</main>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>

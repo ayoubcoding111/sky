@@ -1,8 +1,8 @@
 {
   "index.html": {
-    "mtime": 1790380252.5943503,
-    "seen": 1790380255.42959,
-    "ast_hash": "021cb8acd0fe26d6c1e43d5e7c74a73c",
+    "mtime": 1790383391.5104525,
+    "seen": 1790383394.2845507,
+    "ast_hash": "601c952cd3583d0a54f5649c18281dc1",
     "semantic_hash": ""
   },
   "imgs/main.webp": {
@@ -36,9 +36,9 @@
     "semantic_hash": ""
   },
   "app.js": {
-    "mtime": 1790380507.383288,
-    "seen": 1790380510.2588813,
-    "ast_hash": "969b71de24b18b918aa0731b0011348d",
+    "mtime": 1790382056.1835954,
+    "seen": 1790382058.9659207,
+    "ast_hash": "d3f3eeacf066e6101df7c88592d04f7e",
     "semantic_hash": ""
   },
   ".claude/settings.local.json": {
@@ -47,10 +47,10 @@
     "ast_hash": "48c697a0530a63d75d39f14f18b430c7",
     "semantic_hash": ""
   },
-  "image.png": {
-    "mtime": 1790379344.9397683,
-    "seen": 1790379462.5329103,
-    "ast_hash": "bd915d016cdc1d2d9fbf98715552f4e4",
+  "sample.png": {
+    "mtime": 1790381203.608919,
+    "seen": 1790381298.7093968,
+    "ast_hash": "e503b0fac8c8c885c20c1060eb624336",
     "semantic_hash": ""
   }
 }

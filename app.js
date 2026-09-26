@@ -107,7 +107,7 @@
   // the label glides up and docks at the top by progress .8 — just as the
   // cabin fades out (.84), so it is already headered when the img is gone.
   // ease none keeps it 1:1 with the scrollbar the whole way.
-  tl.to(windowBrand, {y:function(){ return -(window.innerHeight*0.49 - 34); },
+  tl.to(windowBrand, {y:function(){ return -(window.innerHeight*0.49 - 22); },
     scale:.8, duration:.45, ease:'none'}, 0);
 
   // THE ZOOM — cabin (image + text as one) rushes past camera, sky drifts slower
@@ -124,6 +124,49 @@
   tl.to('#cabinLayer',{opacity:0, duration:.12, ease:'power1.out'},.84);
   tl.to('#skyFade',{opacity:1, duration:.2, ease:'power1.out'},.68);
   tl.to('.vignette',{opacity:0, duration:.2},.8);
+
+  // ---- anchor links: work with Lenis + pinned ScrollTrigger ----
+  document.querySelectorAll('[data-scroll]').forEach(function(a){
+    a.addEventListener('click', function(ev){
+      var id = a.getAttribute('href');
+      if(!id || id.charAt(0) !== '#') return;
+      var el = document.querySelector(id);
+      if(!el) return;
+      ev.preventDefault();
+      document.getElementById('navLinks').classList.remove('open');
+      document.getElementById('navToggle').setAttribute('aria-expanded','false');
+      if(lenis){ lenis.scrollTo(el, {duration:1.6}); }
+      else{ el.scrollIntoView({behavior:'smooth'}); }
+    });
+  });
+
+  // ---- mobile menu ----
+  var toggle = document.getElementById('navToggle');
+  var links = document.getElementById('navLinks');
+  if(toggle && links){
+    toggle.addEventListener('click', function(){
+      var open = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
+
+  // ---- reveals for content sections ----
+  gsap.utils.toArray('.reveal').forEach(function(el){
+    gsap.to(el, {
+      opacity:1, y:0, duration:.9, ease:'power3.out',
+      scrollTrigger:{ trigger: el, start:'top 88%' }
+    });
+  });
+
+  // ---- demo contact form ----
+  var form = document.getElementById('contactForm');
+  if(form){
+    form.addEventListener('submit', function(){
+      var note = document.getElementById('formNote');
+      if(note) note.textContent = 'Thanks — we will reply shortly. (Connect backend to receive messages.)';
+      form.reset();
+    });
+  }
 
   window.addEventListener('load', function(){ ScrollTrigger.refresh(); });
 })();
