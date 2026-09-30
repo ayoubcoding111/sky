@@ -2,29 +2,28 @@
   gsap.registerPlugin(ScrollTrigger);
   ScrollTrigger.config({ ignoreMobileResize: true });
 
-  // ---- smooth scroll ----
+  // ---- smooth scroll (snappy, not floaty) ----
   let lenis = null;
   try{
-    lenis = new Lenis({ smoothWheel:true, lerp:0.1 });
+    lenis = new Lenis({ smoothWheel:true, lerp:0.13 });
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add(function(time){ lenis.raf(time*1000); });
     gsap.ticker.lagSmoothing(0);
   }catch(e){ /* Lenis optional */ }
 
   var isMobile = window.matchMedia('(max-width: 700px)').matches;
-  // Mobile portrait (cover-fit) needs LESS scale to fill the window —
-  // 4.2x fully clears the hole; higher just pushes deeper into empty sky.
-  var CABIN_SCALE = isMobile ? 4.2 : 7.2;
-  // Short pin on touch: the zoom ends the instant the cabin is gone,
-  // so there is zero dead sky-scroll before the content.
-  var SCROLL_LEN = isMobile ? '+=90%' : '+=350%';
-  // Fade beats: on mobile the cabin fade is the LAST thing in the timeline,
-  // so unpin lands exactly as the main img disappears.
+  // Desktop zoom needs only ~5.5x to fully clear the window hole —
+  // 7.2x just pushed deeper into empty sky (dead scroll + raster cost).
+  var CABIN_SCALE = isMobile ? 4.2 : 5.5;
+  // Short pin: less dead sky-scroll before the content, snappier handoff.
+  var SCROLL_LEN = isMobile ? '+=90%' : '+=200%';
+  // Vignette settles BEFORE unpin (ends .95) so the release into
+  // content is already a clean sky — no last-frame pop.
   var T_CABIN_OUT = isMobile ? 0.88 : 0.84,
       T_SKYFADE = isMobile ? 0.73 : 0.68,
       D_SKYFADE = isMobile ? 0.27 : 0.2,
       T_VIG = isMobile ? 0.85 : 0.8,
-      D_VIG = isMobile ? 0.15 : 0.2;
+      D_VIG = isMobile ? 0.15 : 0.15;
 
   /* Window hole geometry in source-image fractions (main.webp 5000x2500).
      Measured from layout size (offsetWidth/offsetHeight), which GSAP zoom
@@ -61,10 +60,17 @@
     var iw = skyPhoto.naturalWidth, ih = skyPhoto.naturalHeight;
     var s = Math.max(W/iw, H/ih);
     var rw = iw*s, rh = ih*s;
+    // DESKTOP ONLY crop: square sky (2240x2240) leaves a near-viewport
+    // tail below the fold on wide screens. Keep viewport + a 55vh drift;
+    // only the bottom excess is cropped (photo anchored top).
+    // Mobile portrait has ~zero overflow, so keep full travel there.
+    var over = rh - H;
+    if(over < 0) over = 0;
+    var drift = isMobile ? over : Math.min(over, window.innerHeight * 0.55);
     skyPhotoWrap.style.width = rw.toFixed(1)+'px';
-    skyPhotoWrap.style.height = rh.toFixed(1)+'px';
+    skyPhotoWrap.style.height = (H + drift).toFixed(1)+'px';
     skyPhotoWrap.style.left = ((W-rw)/2).toFixed(1)+'px';
-    skyTravel.y = -(rh - H);
+    skyTravel.y = -drift;
   }
   function fitSkyThenRefresh(){ fitSky(); ScrollTrigger.refresh(); }
   if(skyPhoto.complete && skyPhoto.naturalWidth){ fitSky(); }

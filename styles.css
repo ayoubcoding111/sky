@@ -192,6 +192,16 @@ nav{position:fixed;inset:0 0 auto 0;z-index:50;
 /* mobile-only "We are distinction" (lives in .h-bottom-left, hidden on desktop) */
 .h-mobile-only{display:none}
 
+/* DESKTOP ONLY: sky.webp is square, so cover-fit leaves a long tail
+   below the viewport. Anchor the photo to the top so fitSky() can crop
+   the bottom excess, and promote the huge second.webp to its own layer
+   so scrolling over it doesn't jank. */
+@media(min-width:701px){
+  #skyPhoto{object-position:50% 0}
+  #skyPhotoWrap{overflow:hidden}
+  .page-bg{transform:translateZ(0)}
+}
+
 @media(max-width:700px){
   .h-mid{display:none}
   #heroBottomLeft .h-sub{display:none}

@@ -13,7 +13,7 @@
       "file_type": "code",
       "norm_label": "fitmask()",
       "source_file": "app.js",
-      "source_location": "L34"
+      "source_location": "L33"
     },
     {
       "id": "app_fitsky",
@@ -25,7 +25,7 @@
       "file_type": "code",
       "norm_label": "fitsky()",
       "source_file": "app.js",
-      "source_location": "L57"
+      "source_location": "L56"
     },
     {
       "id": "app_fitskythenrefresh",
@@ -37,7 +37,7 @@
       "file_type": "code",
       "norm_label": "fitskythenrefresh()",
       "source_file": "app.js",
-      "source_location": "L69"
+      "source_location": "L75"
     },
     {
       "id": "readme",
@@ -73,7 +73,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app.js",
-      "source_location": "L69",
+      "source_location": "L75",
       "weight": 1.0
     },
     {
@@ -84,7 +84,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app.js",
-      "source_location": "L34",
+      "source_location": "L33",
       "weight": 1.0
     },
     {
@@ -95,7 +95,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app.js",
-      "source_location": "L57",
+      "source_location": "L56",
       "weight": 1.0
     },
     {
@@ -106,10 +106,10 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app.js",
-      "source_location": "L69",
+      "source_location": "L75",
       "weight": 1.0
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "d96144f4559e5074198d4e296eea667db5b7ee55"
+  "built_at_commit": "2da871b25fde032e27e1d3eb185e9c8f35689b35"
 }
