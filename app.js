@@ -16,7 +16,8 @@
   // 7.2x just pushed deeper into empty sky (dead scroll + raster cost).
   var CABIN_SCALE = isMobile ? 4.2 : 5.5;
   // Short pin: less dead sky-scroll before the content, snappier handoff.
-  var SCROLL_LEN = isMobile ? '+=90%' : '+=200%';
+  // Mobile: pin releases the moment the cabin fades out — no empty scroll.
+  var SCROLL_LEN = isMobile ? '+=60%' : '+=200%';
   // Vignette settles BEFORE unpin (ends .95) so the release into
   // content is already a clean sky — no last-frame pop.
   var T_CABIN_OUT = isMobile ? 0.88 : 0.84,
@@ -153,18 +154,22 @@
       ev.preventDefault();
       document.getElementById('navLinks').classList.remove('open');
       document.getElementById('navToggle').setAttribute('aria-expanded','false');
+      var siteNav = document.getElementById('siteNav');
+      if(siteNav) siteNav.classList.remove('menu-open');
       if(lenis){ lenis.scrollTo(el, {duration:1.6}); }
       else{ el.scrollIntoView({behavior:'smooth'}); }
     });
   });
 
   // ---- mobile menu ----
+  var nav = document.getElementById('siteNav');
   var toggle = document.getElementById('navToggle');
   var links = document.getElementById('navLinks');
   if(toggle && links){
     toggle.addEventListener('click', function(){
       var open = links.classList.toggle('open');
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if(nav) nav.classList.toggle('menu-open', open);
     });
   }
 

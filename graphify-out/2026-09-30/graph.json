@@ -37,7 +37,7 @@
       "file_type": "code",
       "norm_label": "fitskythenrefresh()",
       "source_file": "app.js",
-      "source_location": "L68"
+      "source_location": "L75"
     },
     {
       "id": "readme",
@@ -73,7 +73,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app.js",
-      "source_location": "L68",
+      "source_location": "L75",
       "weight": 1.0
     },
     {
@@ -106,7 +106,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app.js",
-      "source_location": "L68",
+      "source_location": "L75",
       "weight": 1.0
     }
   ],
