@@ -189,7 +189,13 @@ nav{position:fixed;inset:0 0 auto 0;z-index:50;
   font-feature-settings:"dlig" on,"salt" on;color:var(--white)}
 .scroll-down i{font-style:normal;margin-right:8px;opacity:.8}
 
+/* mobile-only "We are distinction" (lives in .h-bottom-left, hidden on desktop) */
+.h-mobile-only{display:none}
+
 @media(max-width:700px){
+  .h-mid{display:none}
+  #heroBottomLeft .h-sub{display:none}
+  .h-mobile-only{display:block}
   .h-line{max-width:70vw;font-size:clamp(30px,8.5vw,44px)}
   .h-top{top:10%}
   .h-mid{top:38%}

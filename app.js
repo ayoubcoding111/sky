@@ -12,7 +12,19 @@
   }catch(e){ /* Lenis optional */ }
 
   var isMobile = window.matchMedia('(max-width: 700px)').matches;
-  var CABIN_SCALE = isMobile ? 9 : 7.2; // text is INSIDE #cabinLayer, so it rides this zoom for free
+  // Mobile portrait (cover-fit) needs LESS scale to fill the window —
+  // 4.2x fully clears the hole; higher just pushes deeper into empty sky.
+  var CABIN_SCALE = isMobile ? 4.2 : 7.2;
+  // Short pin on touch: the zoom ends the instant the cabin is gone,
+  // so there is zero dead sky-scroll before the content.
+  var SCROLL_LEN = isMobile ? '+=90%' : '+=350%';
+  // Fade beats: on mobile the cabin fade is the LAST thing in the timeline,
+  // so unpin lands exactly as the main img disappears.
+  var T_CABIN_OUT = isMobile ? 0.88 : 0.84,
+      T_SKYFADE = isMobile ? 0.73 : 0.68,
+      D_SKYFADE = isMobile ? 0.27 : 0.2,
+      T_VIG = isMobile ? 0.85 : 0.8,
+      D_VIG = isMobile ? 0.15 : 0.2;
 
   /* Window hole geometry in source-image fractions (main.webp 5000x2500).
      Measured from layout size (offsetWidth/offsetHeight), which GSAP zoom
@@ -93,7 +105,7 @@
     scrollTrigger:{
       trigger:'#flight',
       start:'top top',
-      end:'+=350%',
+      end:SCROLL_LEN,
       scrub:true,
       pin:true,
       anticipatePin:1,
@@ -121,9 +133,9 @@
   gsap.fromTo('#driftSingle',{xPercent:0},{xPercent:-50, duration:22, ease:'none', repeat:-1});
 
   // cabin (with text) hands off to full-bleed sky
-  tl.to('#cabinLayer',{opacity:0, duration:.12, ease:'power1.out'},.84);
-  tl.to('#skyFade',{opacity:1, duration:.2, ease:'power1.out'},.68);
-  tl.to('.vignette',{opacity:0, duration:.2},.8);
+  tl.to('#cabinLayer',{opacity:0, duration:.12, ease:'power1.out'},T_CABIN_OUT);
+  tl.to('#skyFade',{opacity:1, duration:D_SKYFADE, ease:'power1.out'},T_SKYFADE);
+  tl.to('.vignette',{opacity:0, duration:D_VIG},T_VIG);
 
   // ---- anchor links: work with Lenis + pinned ScrollTrigger ----
   document.querySelectorAll('[data-scroll]').forEach(function(a){
