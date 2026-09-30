@@ -22,8 +22,9 @@
     <nav id="siteNav">
       <div class="nav-links" id="navLinks">
         <a href="#about" data-scroll>About</a>
-        <a href="#services" data-scroll>Services</a>
+        <a href="#fleet" data-scroll>Our Fleet</a>
         <a href="#advantages" data-scroll>Advantages</a>
+        <a href="#global" data-scroll>Global</a>
         <a href="#contact" data-scroll>Contact</a>
       </div>
       <div class="nav-right">
@@ -37,6 +38,19 @@
     <!-- THE window label: fixed so it can travel from the window to the top
          header on scroll and stay there. Click = back home. -->
     <a href="#flight" id="windowBrand" class="h-window-brand">Jesko Jets</a>
+
+    <!-- sticky Book button: appears after the hero, jumps to contact -->
+    <button id="stickyBook" class="CartBtn show" type="button">
+  <span class="IconContainer">
+    <svg viewBox="0 0 13 13" width="18px" aria-hidden="true">
+      <path
+        fill="currentColor"
+        d="M1.55989957,5.41666667 L5.51582215,5.41666667 L4.47015462,0.108333333 L4.47015462,0.108333333 C4.47015462,0.0634601974 4.49708054,0.0249592654 4.5354546,0.00851337035 L4.57707145,0 L5.36229752,0 C5.43359776,0 5.50087375,0.028779451 5.55026392,0.0782711996 L5.59317877,0.134368264 L7.13659662,2.81558333 L8.29565964,2.81666667 C8.53185377,2.81666667 8.72332694,3.01067661 8.72332694,3.25 C8.72332694,3.48932339 8.53185377,3.68333333 8.29565964,3.68333333 L7.63589819,3.68225 L8.63450135,5.41666667 L11.9308317,5.41666667 C12.5213171,5.41666667 13,5.90169152 13,6.5 C13,7.09830848 12.5213171,7.58333333 11.9308317,7.58333333 L8.63450135,7.58333333 L7.63589819,9.31666667 L8.29565964,9.31666667 C8.53185377,9.31666667 8.72332694,9.51067661 8.72332694,9.75 C8.72332694,9.98932339 8.53185377,10.1833333 8.29565964,10.1833333 L7.13659662,10.1833333 L5.59317877,12.8656317 C5.55725264,12.9280353 5.49882018,12.9724157 5.43174295,12.9907056 L5.36229752,13 L4.57707145,13 L4.55610333,12.9978962 C4.51267695,12.9890959 4.48069792,12.9547924 4.47230803,12.9134397 L4.47223088,12.8704208 L5.51582215,7.58333333 L1.55989957,7.58333333 L0.891288881,8.55114605 C0.853775374,8.60544678 0.798421006,8.64327676 0.73629202,8.65879796 L0.672314689,8.66666667 L0.106844414,8.66666667 L0.0715243949,8.66058466 L0.0715243949,8.66058466 C0.0297243066,8.6457608 0.00275502199,8.60729104 0,8.5651586 L0.00593007386,8.52254537 L0.580855011,6.85813984 C0.64492547,6.67265611 0.6577034,6.47392717 0.619193545,6.28316421 L0.580694768,6.14191703 L0.00601851064,4.48064746 C0.00203480725,4.4691314 0,4.45701613 0,4.44481314 C0,4.39994001 0.0269259152,4.36143908 0.0652999725,4.34499318 L0.106916826,4.33647981 L0.672546853,4.33647981 C0.737865848,4.33647981 0.80011301,4.36066329 0.848265401,4.40322477 L0.89131128,4.45169723 L1.55989957,5.41666667 Z"
+      ></path>
+    </svg>
+  </span>
+  <p class="text">Book the Flight</p>
+</button>
 
     <!-- ============ PINNED ZOOM ============ -->
     <section id="flight">
@@ -82,10 +96,6 @@
                 </p>
               </div>
 
-              <div class="h-bottom-center" id="bookRow">
-                <button class="book-btn btn-donate" type="button"><span class="btn-plane" aria-hidden="true">✈</span>Book the Flight</button>
-              </div>
-
               <div class="h-bottom-right" id="journeyRow">
                 <span class="scroll-down"><i>∨</i>SCROLL DOWN</span>
                 <span class="start-journey">TO START THE JOURNEY</span>
@@ -106,52 +116,60 @@
   <div class="page-shade" aria-hidden="true"></div>
 
 <section id="about" class="section about">
-  <div class="wrap about-grid">
-      <div class="kicker reveal">01 — About</div>
-      <h2 class="sec-title reveal">About Aeris</h2>
-      <p class="sec-lead reveal">Tell me what to write here — your story, fleet, experience.</p>
+  <div class="wrap">
+      <h2 class="sec-title split-scroll" id="aboutStatement">Jesko Jets&reg; is a private aviation operator with over 5,000 missions across 150+ countries</h2>
+      <p class="sec-lead reveal">From international executives to global industries, our clients trust us to deliver on time, every time. From the first call to landing, every journey is tailored to your comfort, privacy and schedule.</p>
       <div class="about-cards">
         <div class="about-card reveal">
-          <h3>Who we are</h3>
-          <p><!-- YOUR TEXT: who you are --></p>
+          <h3>Direct access to private travel</h3>
+          <p>Fly beyond boundaries with Jesko Jets. Our global operations ensure seamless, personalized travel experiences — from the first call to landing.</p>
         </div>
         <div class="about-card reveal">
-          <h3>What we do</h3>
-          <p><!-- YOUR TEXT: what you do --></p>
+          <h3>Your freedom to enjoy life</h3>
+          <p>We value your time above all. Live, work and relax wherever life takes you — without compromise, without waiting in lines.</p>
         </div>
         <div class="about-card reveal">
-          <h3>Stats / trust</h3>
-          <p><!-- YOUR TEXT: e.g. 5000+ missions, 24/7, etc. --></p>
+          <h3>Precision and excellence</h3>
+          <p>Each detail — from route planning to in-flight service — reflects our dedication to perfection. Crew and fleet meet the highest global standards.</p>
+        </div>
+        <div class="about-card reveal">
+          <h3>Global reach, personal touch</h3>
+          <p>Access to destinations in over 150 countries, with experts managing every aspect of your flight for a smooth, effortless journey.</p>
         </div>
       </div>
+      <dl class="about-stats reveal">
+        <div><dt>5K+</dt><dd>Missions completed</dd></div>
+        <div><dt>174</dt><dd>Countries supported</dd></div>
+        <div><dt>Dubai, UAE</dt><dd>Based in</dd></div>
+        <div><dt>24/7</dt><dd>Availability, any time zone</dd></div>
+      </dl>
     </div>
   </section>
 
-  <section id="services" class="section services">
+  <section id="fleet" class="section services">
     <div class="wrap">
-      <div class="kicker reveal">02 — Services</div>
-      <h2 class="sec-title reveal">Our Services</h2>
-      <p class="sec-lead reveal">On-demand charter, full aircraft management and door-to-door concierge — one team for the whole journey.</p>
+      <h2 class="sec-title reveal">Luxury that moves with you — Gulfstream 650ER</h2>
+      <p class="sec-lead reveal">Featuring wings designed to minimize anything that could disrupt its natural aerodynamic balance, and powered by high-thrust Rolls-Royce BR725 engines — engineered for exceptional range and top-end speed. A true time-saving machine: Tokyo and New York an hour closer, at 92% of the speed of sound, circling the globe with just a single stop.</p>
       <div class="svc-grid">
         <article class="svc-card reveal">
-          <div class="svc-num">01</div>
-          <h3>Private Charter</h3>
-          <p>On-demand flights on light, midsize and long-range jets. Quote in minutes, wheels up in hours.</p>
+          <h3>11,263 km</h3>
+          <p>Maximum operating range — intercontinental non-stop.</p>
+          <ul class="svc-list"><li>Endurance: 14 hrs</li><li>Cruising altitude: 15,544 m</li><li>Speed: 480 knots</li></ul>
         </article>
         <article class="svc-card reveal">
-          <div class="svc-num">02</div>
-          <h3>Aircraft Management</h3>
-          <p>Crew, maintenance, compliance and operations handled end-to-end, with revenue when you don't fly.</p>
+          <h3>Up to 12 + 1</h3>
+          <p>Passengers plus cabin server, with full stand-up comfort.</p>
+          <ul class="svc-list"><li>Cabin length: 14.05 m</li><li>Cabin width: 2.49 m</li><li>Cabin height: 1.92 m</li></ul>
         </article>
         <article class="svc-card reveal">
-          <div class="svc-num">03</div>
-          <h3>Concierge & Transfers</h3>
-          <p>Ground transport, catering, hotels and last-mile details arranged around your schedule.</p>
+          <h3>5.52 m³</h3>
+          <p>Baggage capacity for long stays, gear and shopping.</p>
+          <ul class="svc-list"><li>In-flight baggage access</li><li>Ski, golf & oversize ready</li><li>Pets travel in cabin</li></ul>
         </article>
         <article class="svc-card reveal">
-          <div class="svc-num">04</div>
-          <h3>Empty Legs</h3>
-          <p>One-way deals on repositioning flights — same jets and crew, up to 50% less. Ask what's flying this week.</p>
+          <h3>On-demand charter</h3>
+          <p>Quote in minutes, wheels up in hours — private terminals, flexible catering, last-minute changes handled 24/7.</p>
+          <ul class="svc-list"><li>Business & family flights</li><li>Empty-leg deals on request</li><li>Concierge & transfers</li></ul>
         </article>
       </div>
     </div>
@@ -159,52 +177,97 @@
 
   <section id="advantages" class="section advantages">
     <div class="wrap adv-grid">
-      <div>
-        <div class="kicker reveal">03 — Advantages</div>
-        <h2 class="sec-title reveal">Why fly with us</h2>
-        <p class="sec-lead reveal">Safety-first operations, human service 24/7, and honest pricing — the reasons 5000+ missions trust Aeris.</p>
+      <div class="adv-intro">
+        <h2 class="sec-title reveal">Fly anywhere with total comfort and control</h2>
+        <p class="sec-lead reveal">Each journey reflects years of expertise, precision and trust. From last-minute charters to intercontinental business routes — safety, discretion and excellence in every flight.</p>
       </div>
       <ul class="adv-list">
-        <li class="reveal"><span>01</span><div><h3>Safety first</h3><p>Audited operators, veteran crews, strict maintenance — no compromises, ever.</p></div></li>
-        <li class="reveal"><span>02</span><div><h3>Available 24/7</h3><p>A real human on the line day and night. Changes, delays, urgent trips — handled.</p></div></li>
-        <li class="reveal"><span>03</span><div><h3>Comfort & privacy</h3><p>Private terminals, your cabin setup, total discretion from takeoff to touchdown.</p></div></li>
-        <li class="reveal"><span>04</span><div><h3>Transparent pricing</h3><p>One all-in quote up front. No hidden fees, no surprises after landing.</p></div></li>
+        <li class="reveal"><div><h3>Pets</h3><p>Comfort and peace of mind for owners and companions. We handle documentation, safety and onboard care — your pet enjoys the same luxury as you.</p></div></li>
+        <li class="reveal"><div><h3>24/7 availability</h3><p>Around the clock, any time zone, any urgency. Last-minute arrangements to personalized services — assistance is never more than a call away.</p></div></li>
+        <li class="reveal"><div><h3>Onboard services</h3><p>Fine dining, curated entertainment, attentive crew and seamless connectivity — every detail arranged for maximum comfort in the air.</p></div></li>
+        <li class="reveal"><div><h3>Efficient</h3><p>Optimized routes, streamlined procedures, quick boarding and smooth ground handling. You get there faster, without compromise.</p></div></li>
       </ul>
     </div>
   </section>
 
-  <section id="contact" class="section contact">
-    <div class="wrap contact-grid">
-      <div>
-        <div class="kicker reveal">04 — Contact</div>
-        <h2 class="sec-title reveal">Get in touch</h2>
-        <p class="sec-lead reveal">Tell me your phone, email, location, hours.</p>
-        <ul class="contact-info reveal">
-          <li><strong>Phone</strong><span>+00 000 000 000</span></li>
-          <li><strong>Email</strong><span>hello@aeris.example</span></li>
-          <li><strong>Base</strong><span>Your city / airport</span></li>
-        </ul>
+  <section id="global" class="section global">
+    <div class="wrap">
+      <h2 class="sec-title reveal">Fly anywhere</h2>
+      <p class="sec-lead reveal">Based in Dubai, UAE — operating worldwide. 5K+ flights successfully arranged, from last-minute charters to intercontinental business routes.</p>
+      <div class="city-chips reveal">
+        <span>Berlin</span><span>Sydney</span><span>Hong Kong</span><span>Paris</span><span>Toronto</span><span>Riyadh</span><span>Mykonos</span><span>Nice</span><span>Bangkok</span><span>Doha</span><span>Cairo</span><span>Tokyo</span><span>Seoul</span><span>Los Angeles</span><span>São Paulo</span><span>Zurich</span><span>Lagos</span><span>New York</span><span>Abu Dhabi</span><span>Milan</span><span>Singapore</span><span>Marrakech</span><span>Mexico City</span><span>Geneva</span><span>Melbourne</span><span>London</span><span>Tel Aviv</span><span>Dubai</span><span>Miami</span><span>Shanghai</span><span>Cape Town</span>
       </div>
-      <form class="contact-form reveal" id="contactForm" onsubmit="return false;">
-        <label>Name<input type="text" name="name" placeholder="Your name" required /></label>
-        <label>Email<input type="email" name="email" placeholder="you@email.com" required /></label>
-        <label>Message<textarea name="message" rows="4" placeholder="Tell us about your flight…"></textarea></label>
-        <button type="submit" class="book-btn">Send Request</button>
-        <p class="form-note" id="formNote"></p>
-      </form>
+    </div>
+  </section>
+
+  <section id="contact" class="section contact">
+    <div class="wrap">
+      <h2 class="sec-title reveal">Book the flight — Gulfstream 650ER</h2>
+      <p class="sec-lead reveal">Send a request and our team will get back to you shortly. For urgent trips, call or WhatsApp anytime — we operate 24/7.</p>
+      <div class="contact-grid">
+        <form class="contact-form reveal" id="contactForm" onsubmit="return false;">
+          <div class="form-row">
+            <label>Name<input type="text" name="name" placeholder="Your name" required /></label>
+            <label>Email<input type="email" name="email" placeholder="you@email.com" required /></label>
+          </div>
+          <div class="form-row">
+            <label>Phone<input type="tel" name="phone" placeholder="+971 …" /></label>
+            <label>Arriving<input type="text" name="arriving" placeholder="Dubai → London, Oct 12" /></label>
+          </div>
+          <button type="submit" class="CartBtn">
+            <span class="IconContainer">
+              <svg viewBox="0 0 13 13" width="18px" aria-hidden="true">
+                <path
+                  fill="currentColor"
+                  d="M1.55989957,5.41666667 L5.51582215,5.41666667 L4.47015462,0.108333333 L4.47015462,0.108333333 C4.47015462,0.0634601974 4.49708054,0.0249592654 4.5354546,0.00851337035 L4.57707145,0 L5.36229752,0 C5.43359776,0 5.50087375,0.028779451 5.55026392,0.0782711996 L5.59317877,0.134368264 L7.13659662,2.81558333 L8.29565964,2.81666667 C8.53185377,2.81666667 8.72332694,3.01067661 8.72332694,3.25 C8.72332694,3.48932339 8.53185377,3.68333333 8.29565964,3.68333333 L7.63589819,3.68225 L8.63450135,5.41666667 L11.9308317,5.41666667 C12.5213171,5.41666667 13,5.90169152 13,6.5 C13,7.09830848 12.5213171,7.58333333 11.9308317,7.58333333 L8.63450135,7.58333333 L7.63589819,9.31666667 L8.29565964,9.31666667 C8.53185377,9.31666667 8.72332694,9.51067661 8.72332694,9.75 C8.72332694,9.98932339 8.53185377,10.1833333 8.29565964,10.1833333 L7.13659662,10.1833333 L5.59317877,12.8656317 C5.55725264,12.9280353 5.49882018,12.9724157 5.43174295,12.9907056 L5.36229752,13 L4.57707145,13 L4.55610333,12.9978962 C4.51267695,12.9890959 4.48069792,12.9547924 4.47230803,12.9134397 L4.47223088,12.8704208 L5.51582215,7.58333333 L1.55989957,7.58333333 L0.891288881,8.55114605 C0.853775374,8.60544678 0.798421006,8.64327676 0.73629202,8.65879796 L0.672314689,8.66666667 L0.106844414,8.66666667 L0.0715243949,8.66058466 L0.0715243949,8.66058466 C0.0297243066,8.6457608 0.00275502199,8.60729104 0,8.5651586 L0.00593007386,8.52254537 L0.580855011,6.85813984 C0.64492547,6.67265611 0.6577034,6.47392717 0.619193545,6.28316421 L0.580694768,6.14191703 L0.00601851064,4.48064746 C0.00203480725,4.4691314 0,4.45701613 0,4.44481314 C0,4.39994001 0.0269259152,4.36143908 0.0652999725,4.34499318 L0.106916826,4.33647981 L0.672546853,4.33647981 C0.737865848,4.33647981 0.80011301,4.36066329 0.848265401,4.40322477 L0.89131128,4.45169723 L1.55989957,5.41666667 Z"
+                ></path>
+              </svg>
+            </span>
+            <p class="text">Submit Request</p>
+          </button>
+          <p class="form-note" id="formNote"></p>
+        </form>
+        <aside class="contact-side reveal">
+          <a class="side-big" href="tel:+971544325050">+971 54 432 5050</a>
+          <a class="side-mail" href="mailto:info@jeskojets.com">info@jeskojets.com</a>
+          <dl class="side-meta">
+            <div><dt>Base</dt><dd>Dubai, UAE — 174 countries supported</dd></div>
+            <div><dt>Aircraft</dt><dd>Gulfstream 650ER · up to 12 + 1</dd></div>
+          </dl>
+          <p class="side-note">Urgent trip? Call or WhatsApp — a human answers, any hour, any time zone.</p>
+        </aside>
+      </div>
     </div>
   </section>
 
   <footer class="footer">
-    <div class="wrap foot-row">
-      <div class="brand">AERIS<small>Private Aviation</small></div>
-      <div class="foot-links">
+    <div class="wrap foot-grid">
+      <div class="foot-brand">
+        <div class="brand">JESKO JETS<small>Private Aviation</small></div>
+        <p>5,000+ missions across 174 countries. Dubai-based and operating worldwide — on time, every time.</p>
+        <div class="foot-contact">
+          <a href="tel:+971544325050">+971 54 432 5050</a>
+          <a href="mailto:info@jeskojets.com">info@jeskojets.com</a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h4>Explore</h4>
         <a href="#about" data-scroll>About</a>
-        <a href="#services" data-scroll>Services</a>
+        <a href="#fleet" data-scroll>Our Fleet</a>
         <a href="#advantages" data-scroll>Advantages</a>
+        <a href="#global" data-scroll>Global</a>
         <a href="#contact" data-scroll>Contact</a>
       </div>
-      <div class="foot-copy">© 2026 Aeris. All rights reserved.</div>
+      <div class="foot-col">
+        <h4>Operations</h4>
+        <span>Dubai, UAE — worldwide</span>
+        <span>Gulfstream 650ER · 12 + 1</span>
+        <span>Available 24/7, any time zone</span>
+      </div>
+    </div>
+    <div class="wrap foot-bottom">
+      <span>© 2026 Jesko Jets. All rights reserved.</span>
+      <a href="#flight" data-scroll>Back to top ↑</a>
     </div>
   </footer>
 

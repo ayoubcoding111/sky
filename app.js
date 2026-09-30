@@ -87,7 +87,6 @@
        .from('.h-mid',{y:60, opacity:0, duration:1},.45)
        .from('.h-bottom-left',{y:26, opacity:0, duration:.9},.65)
        .from('#windowBrand',{opacity:0, duration:1},.7)
-       .from('#bookRow',{y:16, opacity:0, duration:.8},.8)
        .from('#journeyRow',{y:16, opacity:0, duration:.8},.85)
        .from('nav',{y:-24, opacity:0, duration:.8},.5)
        .from('.drift',{opacity:0, duration:1.4},.7);
@@ -171,6 +170,41 @@
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
       if(nav) nav.classList.toggle('menu-open', open);
     });
+  }
+
+  // ---- sticky Book button: fixed forever, jumps to contact ----
+  var stickyBook = document.getElementById('stickyBook');
+  if(stickyBook){
+    stickyBook.addEventListener('click', function(){
+      var el = document.getElementById('contact');
+      if(!el) return;
+      if(lenis){ lenis.scrollTo(el, {duration:1.6}); }
+      else{ el.scrollIntoView({behavior:'smooth'}); }
+    });
+  }
+
+  // ---- about statement: letter-by-letter scroll scrub ----
+  var aboutStatement = document.getElementById('aboutStatement');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(aboutStatement && !reduceMotion){
+    var fullText = aboutStatement.textContent.trim();
+    aboutStatement.setAttribute('aria-label', fullText);
+    aboutStatement.textContent = '';
+    var chars = [];
+    fullText.split(/(\s+)/).forEach(function(tok){
+      if(!tok) return;
+      if(/^\s+$/.test(tok)){ aboutStatement.appendChild(document.createTextNode(' ')); return; }
+      var w = document.createElement('span');
+      w.className = 'w'; w.setAttribute('aria-hidden','true');
+      tok.split('').forEach(function(c){
+        var s = document.createElement('span');
+        s.className = 'ch'; s.textContent = c;
+        w.appendChild(s); chars.push(s);
+      });
+      aboutStatement.appendChild(w);
+    });
+    gsap.fromTo(chars, {opacity:.13}, {opacity:1, ease:'none', stagger:.06,
+      scrollTrigger:{trigger:'#about', start:'top 90%', end:'top 10%', scrub:1}});
   }
 
   // ---- reveals for content sections ----

@@ -1,8 +1,8 @@
 {
   "index.html": {
-    "mtime": 1790784116.1040363,
-    "seen": 1790784118.746357,
-    "ast_hash": "412accc8bd18cabbf1c286293c94143d",
+    "mtime": 1790797358.0239866,
+    "seen": 1790797360.8778334,
+    "ast_hash": "c36eea4d9648bfa947f24186413befd1",
     "semantic_hash": ""
   },
   "imgs/main.webp": {
@@ -36,9 +36,9 @@
     "semantic_hash": ""
   },
   "app.js": {
-    "mtime": 1790784527.10139,
-    "seen": 1790784529.9943314,
-    "ast_hash": "1f9ff8a4c3cd612af314fe9ce02f49cd",
+    "mtime": 1790795500.8746874,
+    "seen": 1790795503.833417,
+    "ast_hash": "383e1cea7555cd7fdddda89f98009d46",
     "semantic_hash": ""
   },
   ".claude/settings.local.json": {
@@ -51,6 +51,30 @@
     "mtime": 1790381203.608919,
     "seen": 1790381298.7093968,
     "ast_hash": "e503b0fac8c8c885c20c1060eb624336",
+    "semantic_hash": ""
+  },
+  "imgs/bottom of the website.jpg": {
+    "mtime": 1790785541.2726257,
+    "seen": 1790785738.6442697,
+    "ast_hash": "3cdebd357a92d1ffd6fac46e3f08c52e",
+    "semantic_hash": ""
+  },
+  "imgs/images (1).jpg": {
+    "mtime": 1790785584.1445813,
+    "seen": 1790785738.6442719,
+    "ast_hash": "58d00fad4cd5ad0d08cdf18b22812ebb",
+    "semantic_hash": ""
+  },
+  "imgs/images (2).jpg": {
+    "mtime": 1790785614.5711832,
+    "seen": 1790785738.6442738,
+    "ast_hash": "faaca9c4e90109fe2743bbe16c6ddebf",
+    "semantic_hash": ""
+  },
+  "imgs/images.jpg": {
+    "mtime": 1790785412.8032262,
+    "seen": 1790785738.6442752,
+    "ast_hash": "98c9add8441e279f8efc8004eb0d9bd4",
     "semantic_hash": ""
   }
 }
