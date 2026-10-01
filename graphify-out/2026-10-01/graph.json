@@ -13,31 +13,67 @@
       "file_type": "code",
       "norm_label": "fitmask()",
       "source_file": "app.js",
-      "source_location": "L34"
+      "source_location": "L40"
+    },
+    {
+      "id": "app_smoothto",
+      "label": "smoothTo()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "app.js",
+      "file_type": "code",
+      "norm_label": "smoothto()",
+      "source_file": "app.js",
+      "source_location": "L15"
+    },
+    {
+      "id": "app_dockbookbtn",
+      "label": "dockBookBtn()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "dockBookBtn",
+      "file_type": "code",
+      "norm_label": "dockbookbtn()",
+      "source_file": "app.js",
+      "source_location": "L202"
+    },
+    {
+      "id": "app_queuedock",
+      "label": "queueDock()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "dockBookBtn",
+      "file_type": "code",
+      "norm_label": "queuedock()",
+      "source_file": "app.js",
+      "source_location": "L209"
     },
     {
       "id": "app_fitsky",
       "label": "fitSky()",
       "_callable": true,
       "_origin": "ast",
-      "community": 2,
+      "community": 3,
       "community_name": "fitSky",
       "file_type": "code",
       "norm_label": "fitsky()",
       "source_file": "app.js",
-      "source_location": "L57"
+      "source_location": "L63"
     },
     {
       "id": "app_fitskythenrefresh",
       "label": "fitSkyThenRefresh()",
       "_callable": true,
       "_origin": "ast",
-      "community": 2,
+      "community": 3,
       "community_name": "fitSky",
       "file_type": "code",
       "norm_label": "fitskythenrefresh()",
       "source_file": "app.js",
-      "source_location": "L76"
+      "source_location": "L82"
     },
     {
       "id": "readme",
@@ -73,7 +109,40 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app.js",
-      "source_location": "L76",
+      "source_location": "L82",
+      "weight": 1.0
+    },
+    {
+      "source": "app",
+      "target": "app_smoothto",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app.js",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "app",
+      "target": "app_dockbookbtn",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app.js",
+      "source_location": "L202",
+      "weight": 1.0
+    },
+    {
+      "source": "app",
+      "target": "app_queuedock",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app.js",
+      "source_location": "L209",
       "weight": 1.0
     },
     {
@@ -84,7 +153,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app.js",
-      "source_location": "L34",
+      "source_location": "L40",
       "weight": 1.0
     },
     {
@@ -95,7 +164,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app.js",
-      "source_location": "L57",
+      "source_location": "L63",
       "weight": 1.0
     },
     {
@@ -106,10 +175,22 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app.js",
-      "source_location": "L76",
+      "source_location": "L82",
+      "weight": 1.0
+    },
+    {
+      "source": "app_queuedock",
+      "target": "app_dockbookbtn",
+      "relation": "indirect_call",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "context": "argument",
+      "source_file": "app.js",
+      "source_location": "L212",
       "weight": 1.0
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "07cee5c91b5917c86065dae5b7fdae6acf105984"
+  "built_at_commit": "479ba66c2a83faf9565f87d1b07b0bc91c9d3ae7"
 }

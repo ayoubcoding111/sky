@@ -11,9 +11,15 @@
     gsap.ticker.lagSmoothing(0);
   }catch(e){ /* Lenis optional */ }
 
+  // single smooth-scroll helper (replaces 3 repeated if/else blocks)
+  function smoothTo(target){
+    if(lenis){ lenis.scrollTo(target, {duration:1.6}); }
+    else if(target === 0){ window.scrollTo({top:0, behavior:'smooth'}); }
+    else{ target.scrollIntoView({behavior:'smooth'}); }
+  }
+
   var isMobile = window.matchMedia('(max-width: 700px)').matches;
-  // Desktop zoom needs only ~5.5x to fully clear the window hole —
-  // 7.2x just pushed deeper into empty sky (dead scroll + raster cost).
+  // 5.5x clears the window hole; higher values only add dead scroll.
   var CABIN_SCALE = isMobile ? 4.2 : 5.5;
   // Short pin: less dead sky-scroll before the content, snappier handoff.
   // Mobile: pin releases the moment the cabin fades out — no empty scroll.
@@ -99,13 +105,13 @@
   gsap.set(windowBrand, {xPercent:-50, yPercent:-50, y:0, scale:1});
   windowBrand.addEventListener('click', function(ev){
     ev.preventDefault();
-    if(lenis){ lenis.scrollTo(0, {duration:1.6}); }
-    else{ window.scrollTo({top:0, behavior:'smooth'}); }
+    smoothTo(0);
   });
 
   // ---- main scroll zoom: pin + scrub.
   // Cabin text needs NO tween of its own — it is a child of #cabinLayer and
   // inherits the cabin zoom + fade automatically. ----
+  var progressBar = document.getElementById('progressBar');
   var tl = gsap.timeline({
     defaults:{ease:'none'},
     scrollTrigger:{
@@ -117,7 +123,7 @@
       anticipatePin:1,
       invalidateOnRefresh:true,
       onUpdate:function(self){
-        document.getElementById('progressBar').style.transform = 'scaleX(' + self.progress + ')';
+        progressBar.style.transform = 'scaleX(' + self.progress + ')';
       }
     }
   });
@@ -137,7 +143,7 @@
   // THE ZOOM — cabin (image + text as one) rushes past camera, sky drifts slower
   tl.to('#cabinLayer',{scale:CABIN_SCALE, xPercent:-0.4, duration:1, ease:'power1.inOut',
       transformOrigin:'50.2% 49%'},0);
-  tl.to('#skyLayer',{scale:1.18, yPercent:0, duration:.3, ease:'power1.inOut'},0);
+  tl.to('#skyLayer',{scale:1.18, duration:.3, ease:'power1.inOut'},0);
   tl.to('#skyLayer',{scale:1.45, duration:.85, ease:'power1.inOut'},.15);
   tl.to('#skyPhotoWrap',{y:function(){ return skyTravel.y; }, duration:.85, ease:'power1.inOut'},.15);
 
@@ -150,6 +156,8 @@
   tl.to('.vignette',{opacity:0, duration:D_VIG},T_VIG);
 
   // ---- anchor links: work with Lenis + pinned ScrollTrigger ----
+  var navLinks = document.getElementById('navLinks');
+  var navToggleBtn = document.getElementById('navToggle');
   document.querySelectorAll('[data-scroll]').forEach(function(a){
     a.addEventListener('click', function(ev){
       var id = a.getAttribute('href');
@@ -157,12 +165,11 @@
       var el = document.querySelector(id);
       if(!el) return;
       ev.preventDefault();
-      document.getElementById('navLinks').classList.remove('open');
-      document.getElementById('navToggle').setAttribute('aria-expanded','false');
+      navLinks.classList.remove('open');
+      navToggleBtn.setAttribute('aria-expanded','false');
       var siteNav = document.getElementById('siteNav');
       if(siteNav) siteNav.classList.remove('menu-open');
-      if(lenis){ lenis.scrollTo(el, {duration:1.6}); }
-      else{ el.scrollIntoView({behavior:'smooth'}); }
+      smoothTo(el);
     });
   });
 
@@ -184,8 +191,7 @@
     stickyBook.addEventListener('click', function(){
       var el = document.getElementById('contact');
       if(!el) return;
-      if(lenis){ lenis.scrollTo(el, {duration:1.6}); }
-      else{ el.scrollIntoView({behavior:'smooth'}); }
+      smoothTo(el);
     });
     // never overlap the footer: instead of hiding, dock the button just
     // above the footer's top edge while it is on screen.

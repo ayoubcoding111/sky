@@ -13,31 +13,19 @@
       "file_type": "code",
       "norm_label": "fitmask()",
       "source_file": "app.js",
-      "source_location": "L34"
+      "source_location": "L40"
     },
     {
-      "id": "app_fitsky",
-      "label": "fitSky()",
+      "id": "app_smoothto",
+      "label": "smoothTo()",
       "_callable": true,
       "_origin": "ast",
       "community": 1,
       "community_name": "app.js",
       "file_type": "code",
-      "norm_label": "fitsky()",
+      "norm_label": "smoothto()",
       "source_file": "app.js",
-      "source_location": "L57"
-    },
-    {
-      "id": "app_fitskythenrefresh",
-      "label": "fitSkyThenRefresh()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "fitskythenrefresh()",
-      "source_file": "app.js",
-      "source_location": "L76"
+      "source_location": "L15"
     },
     {
       "id": "app_dockbookbtn",
@@ -49,7 +37,7 @@
       "file_type": "code",
       "norm_label": "dockbookbtn()",
       "source_file": "app.js",
-      "source_location": "L195"
+      "source_location": "L201"
     },
     {
       "id": "app_queuedock",
@@ -61,7 +49,31 @@
       "file_type": "code",
       "norm_label": "queuedock()",
       "source_file": "app.js",
-      "source_location": "L202"
+      "source_location": "L208"
+    },
+    {
+      "id": "app_fitsky",
+      "label": "fitSky()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "fitSky",
+      "file_type": "code",
+      "norm_label": "fitsky()",
+      "source_file": "app.js",
+      "source_location": "L63"
+    },
+    {
+      "id": "app_fitskythenrefresh",
+      "label": "fitSkyThenRefresh()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "fitSky",
+      "file_type": "code",
+      "norm_label": "fitskythenrefresh()",
+      "source_file": "app.js",
+      "source_location": "L82"
     },
     {
       "id": "readme",
@@ -97,7 +109,18 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app.js",
-      "source_location": "L76",
+      "source_location": "L82",
+      "weight": 1.0
+    },
+    {
+      "source": "app",
+      "target": "app_smoothto",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app.js",
+      "source_location": "L15",
       "weight": 1.0
     },
     {
@@ -108,7 +131,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app.js",
-      "source_location": "L195",
+      "source_location": "L201",
       "weight": 1.0
     },
     {
@@ -119,7 +142,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app.js",
-      "source_location": "L202",
+      "source_location": "L208",
       "weight": 1.0
     },
     {
@@ -130,7 +153,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app.js",
-      "source_location": "L34",
+      "source_location": "L40",
       "weight": 1.0
     },
     {
@@ -141,7 +164,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app.js",
-      "source_location": "L57",
+      "source_location": "L63",
       "weight": 1.0
     },
     {
@@ -152,7 +175,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app.js",
-      "source_location": "L76",
+      "source_location": "L82",
       "weight": 1.0
     },
     {
@@ -164,10 +187,10 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "app.js",
-      "source_location": "L205",
+      "source_location": "L211",
       "weight": 1.0
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "d749d304de6e32e0817f80b4dbc297b99ecc04d5"
+  "built_at_commit": "479ba66c2a83faf9565f87d1b07b0bc91c9d3ae7"
 }
