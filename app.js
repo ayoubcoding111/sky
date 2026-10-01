@@ -122,10 +122,16 @@
     }
   });
 
-  // the label glides up and docks at the top by progress .8 — just as the
-  // cabin fades out (.84), so it is already headered when the img is gone.
-  // ease none keeps it 1:1 with the scrollbar the whole way.
-  tl.to(windowBrand, {y:function(){ return -(window.innerHeight*0.49 - 22); },
+  // the label glides up and docks on the navbar line by progress .8 — just
+  // as the cabin fades out (.84), so it is already headered when the img is
+  // gone. ease none keeps it 1:1 with the scrollbar the whole way.
+  // Dock target = vertical center of #siteNav (same line as the nav items),
+  // measured live so padding/font changes can't misalign it.
+  tl.to(windowBrand, {y:function(){
+      var siteNav = document.getElementById('siteNav');
+      var center = siteNav ? siteNav.offsetHeight / 2 : 30;
+      return -(window.innerHeight * 0.49 - center);
+    },
     scale:.8, duration:.45, ease:'none'}, 0);
 
   // THE ZOOM — cabin (image + text as one) rushes past camera, sky drifts slower
@@ -172,7 +178,7 @@
     });
   }
 
-  // ---- sticky Book button: fixed forever, jumps to contact ----
+  // ---- sticky Book button: jumps to contact, hides over contact/footer ----
   var stickyBook = document.getElementById('stickyBook');
   if(stickyBook){
     stickyBook.addEventListener('click', function(){
@@ -181,6 +187,30 @@
       if(lenis){ lenis.scrollTo(el, {duration:1.6}); }
       else{ el.scrollIntoView({behavior:'smooth'}); }
     });
+    // never overlap the footer: instead of hiding, dock the button just
+    // above the footer's top edge while it is on screen.
+    var footEl = document.querySelector('.footer');
+    var bookMQ = window.matchMedia('(max-width:560px)');
+    var bookTicking = false;
+    function dockBookBtn(){
+      bookTicking = false;
+      if(!footEl) return;
+      var dockGap = bookMQ.matches ? 8 : 10; // small gap so it hugs the footer edge
+      var overlap = window.innerHeight - footEl.getBoundingClientRect().top;
+      stickyBook.style.bottom = overlap > 0 ? (dockGap + overlap) + 'px' : '';
+    }
+    function queueDock(){
+      if(bookTicking) return;
+      bookTicking = true;
+      requestAnimationFrame(dockBookBtn);
+    }
+    if(footEl){
+      if(lenis){ lenis.on('scroll', queueDock); }
+      window.addEventListener('scroll', queueDock, {passive:true});
+      window.addEventListener('resize', queueDock);
+      ScrollTrigger.addEventListener('refresh', queueDock);
+      dockBookBtn();
+    }
   }
 
   // ---- about statement: letter-by-letter scroll scrub ----
@@ -205,6 +235,50 @@
     });
     gsap.fromTo(chars, {opacity:.13}, {opacity:1, ease:'none', stagger:.06,
       scrollTrigger:{trigger:'#about', start:'top 90%', end:'top 10%', scrub:1}});
+  }
+
+  // ---- about: rows slide in from their own side (no zoom, lead static) ----
+  if(!reduceMotion){
+    gsap.utils.toArray('.about-row').forEach(function(row, i){
+      var photo = row.querySelector('.about-photo');
+      var texts = row.querySelectorAll('.about-text h3, .about-text p');
+      if(!photo) return;
+      var flip = (i % 2 === 1); // even rows render the photo on the right
+      gsap.set(photo, {x: flip ? 90 : -90});
+      gsap.set(texts, {x: flip ? -60 : 60});
+      var tl = gsap.timeline({
+        scrollTrigger:{trigger:row, start:'top 92%', end:'top 55%', scrub:1}
+      });
+      tl.to(photo, {x:0, ease:'none', duration:1}, 0)
+        .to(texts, {x:0, ease:'none', stagger:0.15, duration:0.8}, 0.15);
+    });
+  }
+
+  // ---- advantages: text from the left, cards + images from the right ----
+  if(!reduceMotion){
+    var advTitle = document.getElementById('advTitle');
+    var advLead = document.getElementById('advLead');
+    if(advTitle || advLead){
+      var introParts = [];
+      if(advTitle) introParts.push(advTitle);
+      if(advLead) introParts.push(advLead);
+      gsap.set(introParts, {x:-70, opacity:0});
+      gsap.to(introParts, {x:0, opacity:1, ease:'none', stagger:0.2,
+        scrollTrigger:{trigger:'#advantages .adv-intro', start:'top 85%', end:'top 50%', scrub:1}});
+    }
+    gsap.utils.toArray('.adv-list li').forEach(function(card, i){
+      var thumb = card.querySelector('.adv-thumb');
+      var copy = card.querySelectorAll('h3, p');
+      gsap.set(card, {x:90, opacity:0});
+      if(thumb) gsap.set(thumb, {x:40, scale:1.3, opacity:0});
+      if(copy.length) gsap.set(copy, {x:40, opacity:0});
+      var ctl = gsap.timeline({
+        scrollTrigger:{trigger:card, start:'top 92%', end:'top 55%', scrub:1}
+      });
+      ctl.to(card, {x:0, opacity:1, ease:'none', duration:1}, 0)
+        .to(thumb, {x:0, scale:1, opacity:1, ease:'none', duration:1}, 0)
+        .to(copy, {x:0, opacity:1, ease:'none', stagger:0.15, duration:0.8}, 0.15);
+    });
   }
 
   // ---- reveals for content sections ----

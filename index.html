@@ -24,11 +24,14 @@
         <a href="#about" data-scroll>About</a>
         <a href="#fleet" data-scroll>Our Fleet</a>
         <a href="#advantages" data-scroll>Advantages</a>
-        <a href="#global" data-scroll>Global</a>
         <a href="#contact" data-scroll>Contact</a>
       </div>
       <div class="nav-right">
-        <div class="nav-meta">✈ 5000+ MISSIONS</div>
+        <div class="nav-meta nav-contact">
+          <a href="tel:+971544325050">+971 54 432 5050</a>
+          <span class="nav-dot" aria-hidden="true">•</span>
+          <a href="mailto:info@jeskojets.com">info@jeskojets.com</a>
+        </div>
         <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
@@ -118,23 +121,23 @@
 <section id="about" class="section about">
   <div class="wrap">
       <h2 class="sec-title split-scroll" id="aboutStatement">Jesko Jets&reg; is a private aviation operator with over 5,000 missions across 150+ countries</h2>
-      <p class="sec-lead reveal">From international executives to global industries, our clients trust us to deliver on time, every time. From the first call to landing, every journey is tailored to your comfort, privacy and schedule.</p>
-      <div class="about-cards">
-        <div class="about-card reveal">
-          <h3>Direct access to private travel</h3>
-          <p>Fly beyond boundaries with Jesko Jets. Our global operations ensure seamless, personalized travel experiences — from the first call to landing.</p>
+      <p class="sec-lead" id="aboutLead">From international executives to global industries, our clients trust us to deliver on time, every time. From the first call to landing, every journey is tailored to your comfort, privacy and schedule.</p>
+      <div class="about-rows">
+        <div class="about-row">
+          <div class="about-photo"><img src="imgs/card-jet-takeoff.jpg" alt="Private jet taking off" loading="lazy" decoding="async" /></div>
+          <div class="about-text"><h3>Direct access to private travel</h3><p>Fly beyond boundaries with Jesko Jets. Our global operations ensure seamless, personalized travel experiences — from the first call to landing.</p></div>
         </div>
-        <div class="about-card reveal">
-          <h3>Your freedom to enjoy life</h3>
-          <p>We value your time above all. Live, work and relax wherever life takes you — without compromise, without waiting in lines.</p>
+        <div class="about-row">
+          <div class="about-photo"><img src="imgs/card-champagne.jpg" alt="Champagne toast on board" loading="lazy" decoding="async" /></div>
+          <div class="about-text"><h3>Your freedom to enjoy life</h3><p>We value your time above all. Live, work and relax wherever life takes you — without compromise, without waiting in lines.</p></div>
         </div>
-        <div class="about-card reveal">
-          <h3>Precision and excellence</h3>
-          <p>Each detail — from route planning to in-flight service — reflects our dedication to perfection. Crew and fleet meet the highest global standards.</p>
+        <div class="about-row">
+          <div class="about-photo"><img src="imgs/card-pilots.jpg" alt="Two pilots in the cockpit" loading="lazy" decoding="async" /></div>
+          <div class="about-text"><h3>Precision and excellence</h3><p>Each detail — from route planning to in-flight service — reflects our dedication to perfection. Crew and fleet meet the highest global standards.</p></div>
         </div>
-        <div class="about-card reveal">
-          <h3>Global reach, personal touch</h3>
-          <p>Access to destinations in over 150 countries, with experts managing every aspect of your flight for a smooth, effortless journey.</p>
+        <div class="about-row">
+          <div class="about-photo"><img src="imgs/card-dubai-night.jpg" alt="Dubai skyline at night" loading="lazy" decoding="async" /></div>
+          <div class="about-text"><h3>Global reach, personal touch</h3><p>Access to destinations in over 150 countries, with experts managing every aspect of your flight for a smooth, effortless journey.</p></div>
         </div>
       </div>
       <dl class="about-stats reveal">
@@ -152,24 +155,28 @@
       <p class="sec-lead reveal">Featuring wings designed to minimize anything that could disrupt its natural aerodynamic balance, and powered by high-thrust Rolls-Royce BR725 engines — engineered for exceptional range and top-end speed. A true time-saving machine: Tokyo and New York an hour closer, at 92% of the speed of sound, circling the globe with just a single stop.</p>
       <div class="svc-grid">
         <article class="svc-card reveal">
-          <h3>11,263 km</h3>
+          <img class="svc-photo" src="imgs/card-wing.jpg" alt="Airplane wing above the clouds" loading="lazy" decoding="async" />
+          <div class="svc-body"><h3>11,263 km</h3>
           <p>Maximum operating range — intercontinental non-stop.</p>
-          <ul class="svc-list"><li>Endurance: 14 hrs</li><li>Cruising altitude: 15,544 m</li><li>Speed: 480 knots</li></ul>
+          <ul class="svc-list"><li>Endurance: 14 hrs</li><li>Cruising altitude: 15,544 m</li><li>Speed: 480 knots</li></ul></div>
         </article>
         <article class="svc-card reveal">
-          <h3>Up to 12 + 1</h3>
+          <img class="svc-photo" src="imgs/card-cabin.jpg" alt="Leather cabin seats" loading="lazy" decoding="async" />
+          <div class="svc-body"><h3>Up to 12 + 1</h3>
           <p>Passengers plus cabin server, with full stand-up comfort.</p>
-          <ul class="svc-list"><li>Cabin length: 14.05 m</li><li>Cabin width: 2.49 m</li><li>Cabin height: 1.92 m</li></ul>
+          <ul class="svc-list"><li>Cabin length: 14.05 m</li><li>Cabin width: 2.49 m</li><li>Cabin height: 1.92 m</li></ul></div>
         </article>
         <article class="svc-card reveal">
-          <h3>5.52 m³</h3>
+          <img class="svc-photo" src="imgs/card-luggage.jpg" alt="Traveller with luggage at the airport" loading="lazy" decoding="async" />
+          <div class="svc-body"><h3>5.52 m³</h3>
           <p>Baggage capacity for long stays, gear and shopping.</p>
-          <ul class="svc-list"><li>In-flight baggage access</li><li>Ski, golf & oversize ready</li><li>Pets travel in cabin</li></ul>
+          <ul class="svc-list"><li>In-flight baggage access</li><li>Ski, golf & oversize ready</li><li>Pets travel in cabin</li></ul></div>
         </article>
         <article class="svc-card reveal">
-          <h3>On-demand charter</h3>
+          <img class="svc-photo" src="imgs/card-jet-cloud.jpg" alt="Jet flying above the clouds" loading="lazy" decoding="async" />
+          <div class="svc-body"><h3>On-demand charter</h3>
           <p>Quote in minutes, wheels up in hours — private terminals, flexible catering, last-minute changes handled 24/7.</p>
-          <ul class="svc-list"><li>Business & family flights</li><li>Empty-leg deals on request</li><li>Concierge & transfers</li></ul>
+          <ul class="svc-list"><li>Business & family flights</li><li>Empty-leg deals on request</li><li>Concierge & transfers</li></ul></div>
         </article>
       </div>
     </div>
@@ -178,25 +185,15 @@
   <section id="advantages" class="section advantages">
     <div class="wrap adv-grid">
       <div class="adv-intro">
-        <h2 class="sec-title reveal">Fly anywhere with total comfort and control</h2>
-        <p class="sec-lead reveal">Each journey reflects years of expertise, precision and trust. From last-minute charters to intercontinental business routes — safety, discretion and excellence in every flight.</p>
+        <h2 class="sec-title" id="advTitle">Fly anywhere with total comfort and control</h2>
+        <p class="sec-lead" id="advLead">Each journey reflects years of expertise, precision and trust. From last-minute charters to intercontinental business routes — safety, discretion and excellence in every flight.</p>
       </div>
       <ul class="adv-list">
-        <li class="reveal"><div><h3>Pets</h3><p>Comfort and peace of mind for owners and companions. We handle documentation, safety and onboard care — your pet enjoys the same luxury as you.</p></div></li>
-        <li class="reveal"><div><h3>24/7 availability</h3><p>Around the clock, any time zone, any urgency. Last-minute arrangements to personalized services — assistance is never more than a call away.</p></div></li>
-        <li class="reveal"><div><h3>Onboard services</h3><p>Fine dining, curated entertainment, attentive crew and seamless connectivity — every detail arranged for maximum comfort in the air.</p></div></li>
-        <li class="reveal"><div><h3>Efficient</h3><p>Optimized routes, streamlined procedures, quick boarding and smooth ground handling. You get there faster, without compromise.</p></div></li>
+        <li><img class="adv-thumb" src="imgs/thumb-dog.jpg" alt="Golden retriever" loading="lazy" decoding="async" /><div><h3>Pets welcome</h3><p>Comfort and peace of mind for owners and companions. We handle documentation, safety and onboard care — your pet enjoys the same luxury as you.</p></div></li>
+        <li><img class="adv-thumb" src="imgs/thumb-headset.jpg" alt="Pilot with headset" loading="lazy" decoding="async" /><div><h3>24/7 availability</h3><p>Around the clock, any time zone, any urgency. Last-minute arrangements to personalized services — assistance is never more than a call away.</p></div></li>
+        <li><img class="adv-thumb" src="imgs/thumb-toast.jpg" alt="Champagne toast" loading="lazy" decoding="async" /><div><h3>Onboard services</h3><p>Fine dining, curated entertainment, attentive crew and seamless connectivity — every detail arranged for maximum comfort in the air.</p></div></li>
+        <li><img class="adv-thumb" src="imgs/thumb-contrails.jpg" alt="Jet contrails in a blue sky" loading="lazy" decoding="async" /><div><h3>Efficient &amp; fast</h3><p>Optimized routes, streamlined procedures, quick boarding and smooth ground handling. You get there faster, without compromise.</p></div></li>
       </ul>
-    </div>
-  </section>
-
-  <section id="global" class="section global">
-    <div class="wrap">
-      <h2 class="sec-title reveal">Fly anywhere</h2>
-      <p class="sec-lead reveal">Based in Dubai, UAE — operating worldwide. 5K+ flights successfully arranged, from last-minute charters to intercontinental business routes.</p>
-      <div class="city-chips reveal">
-        <span>Berlin</span><span>Sydney</span><span>Hong Kong</span><span>Paris</span><span>Toronto</span><span>Riyadh</span><span>Mykonos</span><span>Nice</span><span>Bangkok</span><span>Doha</span><span>Cairo</span><span>Tokyo</span><span>Seoul</span><span>Los Angeles</span><span>São Paulo</span><span>Zurich</span><span>Lagos</span><span>New York</span><span>Abu Dhabi</span><span>Milan</span><span>Singapore</span><span>Marrakech</span><span>Mexico City</span><span>Geneva</span><span>Melbourne</span><span>London</span><span>Tel Aviv</span><span>Dubai</span><span>Miami</span><span>Shanghai</span><span>Cape Town</span>
-      </div>
     </div>
   </section>
 
@@ -228,11 +225,13 @@
           <p class="form-note" id="formNote"></p>
         </form>
         <aside class="contact-side reveal">
+          <div class="card-photo"><img src="imgs/card-dubai-day.jpg" alt="Aerial view of Dubai" loading="lazy" decoding="async" /></div>
           <a class="side-big" href="tel:+971544325050">+971 54 432 5050</a>
           <a class="side-mail" href="mailto:info@jeskojets.com">info@jeskojets.com</a>
           <dl class="side-meta">
             <div><dt>Base</dt><dd>Dubai, UAE — 174 countries supported</dd></div>
             <div><dt>Aircraft</dt><dd>Gulfstream 650ER · up to 12 + 1</dd></div>
+            <div><dt>Hours</dt><dd>24/7 · any time zone · human answers</dd></div>
           </dl>
           <p class="side-note">Urgent trip? Call or WhatsApp — a human answers, any hour, any time zone.</p>
         </aside>
@@ -255,7 +254,6 @@
         <a href="#about" data-scroll>About</a>
         <a href="#fleet" data-scroll>Our Fleet</a>
         <a href="#advantages" data-scroll>Advantages</a>
-        <a href="#global" data-scroll>Global</a>
         <a href="#contact" data-scroll>Contact</a>
       </div>
       <div class="foot-col">
@@ -276,6 +274,6 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
-    <script src="app.js?v=8"></script>
+    <script src="app.js?v=13"></script>
   </body>
 </html>
