@@ -24,9 +24,9 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1790264129.5008307,
-    "seen": 1790264142.9530315,
-    "ast_hash": "44c2b4d2dc933b0efbdc42fda049a466",
+    "mtime": 1790894713.4685624,
+    "seen": 1790894717.576409,
+    "ast_hash": "d6ab8e6d84e72aa4d6fc9245c38b57d8",
     "semantic_hash": ""
   },
   "imgs/second.webp": {
@@ -123,6 +123,24 @@
     "mtime": 1790803927.7836955,
     "seen": 1790803961.7962348,
     "ast_hash": "2422ce209620680092a0aa3e2537cc68",
+    "semantic_hash": ""
+  },
+  "imgs/screenshot-advantages.png": {
+    "mtime": 1790894185.730237,
+    "seen": 1790894717.576451,
+    "ast_hash": "94732b176250995de16165f86eb5442b",
+    "semantic_hash": ""
+  },
+  "imgs/screenshot-booking.png": {
+    "mtime": 1790894220.9522703,
+    "seen": 1790894717.5764554,
+    "ast_hash": "ee34580c95b54d56a2de5ad272c72cd9",
+    "semantic_hash": ""
+  },
+  "imgs/screenshot-hero.png": {
+    "mtime": 1790894092.3447113,
+    "seen": 1790894717.5764577,
+    "ast_hash": "207d69e7a18559fb9f6f2075f5f2ede5",
     "semantic_hash": ""
   }
 }

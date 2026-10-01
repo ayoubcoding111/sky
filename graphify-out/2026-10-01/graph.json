@@ -37,7 +37,7 @@
       "file_type": "code",
       "norm_label": "dockbookbtn()",
       "source_file": "app.js",
-      "source_location": "L202"
+      "source_location": "L201"
     },
     {
       "id": "app_queuedock",
@@ -49,7 +49,7 @@
       "file_type": "code",
       "norm_label": "queuedock()",
       "source_file": "app.js",
-      "source_location": "L209"
+      "source_location": "L208"
     },
     {
       "id": "app_fitsky",
@@ -131,7 +131,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app.js",
-      "source_location": "L202",
+      "source_location": "L201",
       "weight": 1.0
     },
     {
@@ -142,7 +142,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app.js",
-      "source_location": "L209",
+      "source_location": "L208",
       "weight": 1.0
     },
     {
@@ -187,7 +187,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "app.js",
-      "source_location": "L212",
+      "source_location": "L211",
       "weight": 1.0
     }
   ],
